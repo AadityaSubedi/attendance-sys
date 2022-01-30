@@ -10,7 +10,7 @@ from constants import (path_to_facenet_model,
                        path_to_face_embeddings)
 from helper_functions import get_faces, get_embedding
 from matplotlib import pyplot
-
+from videoStream import WebcamVideoStream
 # facenet model
 # load the facenet model
 fn_model = load_model(path_to_facenet_model)
@@ -32,20 +32,21 @@ model = pickle.load(open(path_to_saved_model, 'rb'))
 
 
 # define a video capture object
-vid = cv2.VideoCapture(0)
+vid = WebcamVideoStream(0).start()
 
 
-while(True):
+while(not vid.stopped):
 
     # Capture the video frame
     # by frame
-    ret, frame = vid.read()
+    frame = vid.read()
+    # cv2.imshow('frame', frame)
 
 
     # detect the faces in the frame
     faces,frame = get_faces(frame, isFrame=True)
     # Display the resulting frame
-    cv2.imshow('frame', frame)
+    # cv2.imshow('frame', frame)
 
     if not len(faces):
         continue
@@ -70,13 +71,7 @@ while(True):
 
     
 
-    # the 'q' button is set as the
-    # quitting button you may use any
-    # desired button of your choice
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
 
-# After the loop release the cap object
-vid.release()
-# Destroy all the windows
-cv2.destroyAllWindows()
+
+
+
