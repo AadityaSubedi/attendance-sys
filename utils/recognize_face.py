@@ -1,5 +1,5 @@
 from keras.models import load_model
-from helper_functions import extract_face, get_embedding
+from .helper_functions import extract_face, get_embedding
 from matplotlib import pyplot
 from numpy import expand_dims
 from sklearn.svm import SVC
@@ -9,7 +9,6 @@ from sklearn.preprocessing import LabelEncoder
 from mtcnn.mtcnn import MTCNN
 import cv2
 from utils import constants as c 
-# ##############################VARIABLES#####################################
 path_to_image ="Tour (67).JPG"
 
 
