@@ -3,6 +3,7 @@ from auth.models import User
 from flask_restful import Resource
 from . import user_api
 from flask import Flask, request
+from flask_bcrypt import Bcrypt
 from .models import User
 from database import DB
 
@@ -16,6 +17,9 @@ from flask_jwt_extended import (
     
 )
 
+appBcrypt = Flask(__name__)
+bcrypt = Bcrypt(appBcrypt)
+
 
 from json import loads
 from bson.json_util import dumps
@@ -26,13 +30,14 @@ from utils import file_helper_functions as fhf
 
 @ user_api.resource("/register")
 class RegisterUsers(Resource):
-    @ jwt_required()
+    #@ jwt_required()
     def post(self):
+        pw_hash = bcrypt.generate_password_hash(request.form.get('password'), 10)
         try:
             inputData = {
                 'username': request.form.get('username'),
                 'email': request.form.get('email'),
-                'password': request.form.get('password'),
+                'password': pw_hash,
 
             }
             file = request.files['image']
@@ -78,8 +83,6 @@ class RegisterUsers(Resource):
 
             users = DB.find_many(User.collection, {}, ["username","email"])
 
-
-
             return (hf.success(
                     "registered users",
                     "registered users fetched succesfully",
@@ -106,8 +109,8 @@ class LoginUser(Resource):
             user = DB.find_one(User.collection, {
                 'username': inputData['username']})
 
-            assert user and safe_str_cmp(
-                user['password'], inputData['password']), "Invalid credentials"
+            pw_compare = bcrypt.check_password_hash(user['password'], inputData['password'])
+            assert user and pw_compare, "Invalid credentials"
 
             token = {
                 'access_token': create_access_token(

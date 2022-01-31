@@ -19,8 +19,8 @@ from pymongo.results import (
 class DB:
     # Private variables (DONOT access outside the class)
     _build = os.environ.get("BUILD", "dev")
-    # _remote_url ="mongodb+srv://Attendence:BABA@cluster0.vopso.mongodb.net/test?retryWrites=true&w=majority"
-    _client = pymongo.MongoClient()
+    _remote_url ="mongodb+srv://Attendence:BABA@cluster0.vopso.mongodb.net/test?retryWrites=true&w=majority"
+    _client = pymongo.MongoClient(_remote_url)
 
     if _build == "dev":
         database = _client.attendance_dev

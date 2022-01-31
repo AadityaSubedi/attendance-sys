@@ -5,12 +5,12 @@ from keras.models import load_model
 from numpy import load
 from sklearn.preprocessing import LabelEncoder
 import pickle
-from constants import (path_to_facenet_model,
+from .constants import (path_to_facenet_model,
                        path_to_saved_model,
                        path_to_face_embeddings)
-from helper_functions import get_faces, get_embedding
+from .helper_functions import get_faces, get_embedding
 from matplotlib import pyplot
-from videoStream import WebcamVideoStream
+from .videoStream import WebcamVideoStream
 # facenet model
 # load the facenet model
 fn_model = load_model(path_to_facenet_model)
