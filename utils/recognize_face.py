@@ -8,9 +8,7 @@ from numpy import load
 from sklearn.preprocessing import LabelEncoder
 from mtcnn.mtcnn import MTCNN
 import cv2
-from constants import (path_to_facenet_model,
-                       path_to_saved_model,
-                       path_to_face_embeddings)
+from utils import constants as c 
 # ##############################VARIABLES#####################################
 path_to_image ="Tour (67).JPG"
 
@@ -23,11 +21,11 @@ path_to_image ="Tour (67).JPG"
 
 # facenet model
 # load the facenet model
-fn_model = load_model(path_to_facenet_model)
+fn_model = load_model(c.path_to_facenet_model)
 print("Loaded Model")
 
 # load dataset
-data = load(path_to_face_embeddings)
+data = load(c.path_to_face_embeddings)
 trainX, trainy, testX, testy = data["arr_0"], data["arr_1"], data["arr_2"], data["arr_3"]
 print(f"Dataset: train={trainX.shape} test={testX.shape} ")
 
@@ -39,7 +37,7 @@ testy = out_encoder.transform(testy)
 
 
 #  load the saved model
-model = pickle.load(open(path_to_saved_model, 'rb'))
+model = pickle.load(open(c.path_to_saved_model, 'rb'))
 
 
 

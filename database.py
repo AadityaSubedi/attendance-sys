@@ -19,8 +19,8 @@ from pymongo.results import (
 class DB:
     # Private variables (DONOT access outside the class)
     _build = os.environ.get("BUILD", "dev")
-    # _remote_url ="mongodb+srv://Attendence:BABA@cluster0.vopso.mongodb.net/test?retryWrites=true&w=majority"
-    _client = pymongo.MongoClient()
+    _remote_url ="mongodb+srv://Attendence:BABA@cluster0.vopso.mongodb.net/test?retryWrites=true&w=majority"
+    _client = pymongo.MongoClient(_remote_url)
 
     if _build == "dev":
         database = _client.attendance_dev
@@ -28,6 +28,7 @@ class DB:
         database = _client.attendance_staging
     elif _build == "prod":
         database = _client.attendance
+
 
     # The following methods are used when we expect to work with
     # only one document of a collection.

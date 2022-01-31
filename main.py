@@ -17,6 +17,7 @@ app = Flask(__name__)
 
 app.register_blueprint(attendance_bp)
 app.register_blueprint(user_bp)
+
 app.config['JWT_SECRET_KEY'] = 'will_edit_this_secret_key'
 
 
@@ -25,7 +26,9 @@ app.config['JWT_SECRET_KEY'] = 'will_edit_this_secret_key'
 
 @app.route("/")
 def hello():
-    return {"message": "Happy Coding!"}
+    return {"hey": "msg"}
+
+
 
 @app.route('/images/<string:imagename>')
 def download_image(imagename):
@@ -46,13 +49,14 @@ def add_claims_to_jwt(identity):
     print("----------------------------------")
     return {
         'data1': 'happy coding ',
-        'data2': 'happy coding 2'
+        'data2': 'happy coding 2',
+
     }
 
 
 @jwt.token_in_blocklist_loader
 def check_if_token_in_blocklist(decrypted_token):
-    return decrypted_token['jti'] in {"blocklist"}
+    return decrypted_token['jti'] in {"[blocklist of jti]"}
     #  modify this as per the need later
 
 
