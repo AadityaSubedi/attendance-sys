@@ -40,11 +40,6 @@ class RegisterUsers(Resource):
                 'password': pw_hash,
 
             }
-            file = request.files.get('image')
-            # handle file upload
-            filename = None
-            if file:
-                filename = fhf.save_image(file)
             assert (
                 DB.find_one(User.collection, {
                             "username": inputData["username"]}) is None
@@ -54,6 +49,12 @@ class RegisterUsers(Resource):
                             "email": inputData["email"]}) is None
             ), "Email already in use. \
                 Please try 'Forgot Password' to retrieve your account."
+                
+            file = request.files.get('image')
+            # handle file upload
+            filename = None
+            if file:
+                filename = fhf.save_image(file)
 
             
             user = User(
