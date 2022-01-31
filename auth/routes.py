@@ -13,7 +13,7 @@ from flask_jwt_extended import (
     jwt_required,
     get_jwt_identity,
     get_jti
-    
+
 )
 
 
@@ -40,6 +40,16 @@ class RegisterUsers(Resource):
             filename = None
             if file:
                 filename = fhf.save_image(file)
+
+            assert (
+                DB.find_one(User.collection, {
+                            "username": inputData["username"]}) is None
+            ), f"User with username {inputData['username']} already exists."
+            assert (
+                DB.find_one(User.collection, {
+                            "email": inputData["email"]}) is None
+            ), "Email already in use. \
+                Please try 'Forgot Password' to retrieve your account."
 
             user = User(
                 username=inputData['username'], email=inputData['email'], password=inputData['password'], image=filename)
@@ -68,17 +78,12 @@ class RegisterUsers(Resource):
                     500
                     )
 
-
-
-
     # @ jwt_required()
+
     def get(self):
         try:
 
-
-            users = DB.find_many(User.collection, {}, ["username","email"])
-
-
+            users = DB.find_many(User.collection, {}, ["username", "email"])
 
             return (hf.success(
                     "registered users",
@@ -167,22 +172,20 @@ class TokenRefresh(Resource):
                     )
 
 
-
-
 @user_api.resource("/logout")
 class Logout(Resource):
     @jwt_required()
     def post(self):
         try:
-            jti =get_jti()
-            # TODO: add this jti to  blacklist 
+            jti = get_jti()
+            # TODO: add this jti to  blacklist
             #  using redis or db
 
             # return the command line output as the response
             return (hf.success(
                     "User logout",
                     "user logged out succesfully",
-                    
+
                     ),
                     200
                     )

@@ -8,7 +8,7 @@ from auth import user_bp
 
 
 
-
+UPLOAD_FOLDER = 'uploads'
 
 app = Flask(__name__)
 
@@ -17,7 +17,7 @@ app = Flask(__name__)
 
 app.register_blueprint(attendance_bp)
 app.register_blueprint(user_bp)
-
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['JWT_SECRET_KEY'] = 'will_edit_this_secret_key'
 
 
