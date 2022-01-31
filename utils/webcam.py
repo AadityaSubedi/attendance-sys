@@ -5,10 +5,15 @@ from keras.models import load_model
 from numpy import load
 from sklearn.preprocessing import LabelEncoder
 import pickle
+<<<<<<< HEAD
 from .constants import (path_to_facenet_model,
                        path_to_saved_model,
                        path_to_face_embeddings)
 from .helper_functions import get_faces, get_embedding
+=======
+from .constants import  (path_to_facenet_model,                       path_to_saved_model,path_to_face_embeddings)
+import helper_functions as hf 
+>>>>>>> e1ea17aa5bc911434a4147da5483c5b98b139159
 from matplotlib import pyplot
 from .videoStream import WebcamVideoStream
 # facenet model
@@ -44,7 +49,7 @@ while(not vid.stopped):
 
 
     # detect the faces in the frame
-    faces,frame = get_faces(frame, isFrame=True)
+    faces,frame = hf.get_faces(frame, isFrame=True)
     # Display the resulting frame
     # cv2.imshow('frame', frame)
 
@@ -54,7 +59,7 @@ while(not vid.stopped):
     # exit()
 
     # get embedding vector of face
-    face_embeddeds = [get_embedding(fn_model, face) for face in faces]
+    face_embeddeds = [hf.get_embedding(fn_model, face) for face in faces]
     # prediction for the faces
     yhat_classes = model.predict(face_embeddeds)
     yhat_prob = model.predict_proba(face_embeddeds)

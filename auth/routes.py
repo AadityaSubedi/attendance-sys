@@ -40,15 +40,18 @@ class RegisterUsers(Resource):
                 'password': pw_hash,
 
             }
+            print(inputData)
             file = request.files['image']
             # handle file upload
             filename = None
             if file:
                 filename = fhf.save_image(file)
-
+            
+            print('\nbefore')
             user = User(
                 username=inputData['username'], email=inputData['email'], password=inputData['password'], image=filename)
             registered_user = user.save()
+            print('\nknjdas')
 
             token = {}
             token['access_token'] = create_access_token(
@@ -103,7 +106,7 @@ class RegisterUsers(Resource):
 
 @ user_api.resource("/login")
 class LoginUser(Resource):
-    def post(self):
+    def get(self):
         try:
             inputData = request.get_json()
             user = DB.find_one(User.collection, {

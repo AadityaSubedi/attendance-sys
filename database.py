@@ -29,6 +29,7 @@ class DB:
     elif _build == "prod":
         database = _client.attendance
 
+
     # The following methods are used when we expect to work with
     # only one document of a collection.
     # These operate on the first document that matches in the collection.
