@@ -5,6 +5,8 @@ from attendance import attendance_bp
 from flask_restful import Resource, Api
 from flask_cors import CORS
 from auth import user_bp
+from flask import request
+import uuid
 
 
 
@@ -22,10 +24,16 @@ app.config['JWT_SECRET_KEY'] = 'will_edit_this_secret_key'
 
 
 
+api ="sl.BBKkaWiIINg06-43YK3JxCV8JTjj9AUf2EEnDEZ57KLkgta_ge2h7PwSqjLnVfBm2nQwOG5BqSLCTccVWU1NPcICpA_siMNwKOuRKEDqT70vIJFT-dc5ZIOmLlhQ98kZJISDSPA"
 
-
-@app.route("/")
+import dropbox
+@app.route("/", methods=['GET', 'POST'])
 def hello():
+    file = request.files.get('image')
+    filename = f"{uuid.uuid4()}.jpg"
+    dbx = dropbox.Dropbox(api)
+    x = dbx.files_upload(file.stream.read(), path=f"/images/{filename}")
+    print(x)
     return {"hey": "msg"}
 
 

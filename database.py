@@ -4,10 +4,12 @@ mongoDB queries.
 It is recommended to call these methods when querying the database
 rather than using the pymongo methods.
 """
+
 import os
 from typing import Any, Iterable, List, Mapping, Optional, Union
-
+import dropbox
 import pymongo
+from config import DBX_API_KEY
 from pymongo.results import (
     DeleteResult,
     InsertManyResult,
@@ -28,6 +30,9 @@ class DB:
         database = _client.attendance_staging
     elif _build == "prod":
         database = _client.attendance
+
+    # dropbox image upload
+    dbx = dropbox.Dropbox(DBX_API_KEY)
 
 
     # The following methods are used when we expect to work with

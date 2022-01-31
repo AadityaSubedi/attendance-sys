@@ -5,7 +5,7 @@ from io import BytesIO
 from flask import current_app as app
 from PIL import Image
 from werkzeug.datastructures import FileStorage
-
+from database import DB
 from . import helper_functions as hf
 
 
@@ -20,14 +20,11 @@ def save_image(file: FileStorage) -> str:
 
     assert file.filename, "No image selected."
     extension = hf.is_image(file.filename)
-    directory = os.path.join(os.getcwd(), app.config["UPLOAD_FOLDER"], "images")
 
-    # !Create the directory if it doesn't exist
-    os.makedirs(directory, exist_ok=True)
+
     filename = f"{uuid.uuid4()}.{extension}"
-    imageFileBytes = BytesIO(file.stream.read())
-    image = Image.open(imageFileBytes)
-    image.save(os.path.join(directory, filename), quality=50)
+    DB.dbx.files_upload(file.stream.read(), path=f"/images/{filename}")
+
     return filename
 
 
