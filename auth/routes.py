@@ -78,8 +78,7 @@ class RegisterUsers(Resource):
                     500
                     )
 
-    # @ jwt_required()
-
+    @ jwt_required()
     def get(self):
         try:
 
