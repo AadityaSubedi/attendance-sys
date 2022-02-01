@@ -7,6 +7,8 @@ from flask_bcrypt import Bcrypt
 from .models import User
 from database import DB
 
+from . import auth_helper_functions as ahf
+
 from werkzeug.security import safe_str_cmp
 from flask_jwt_extended import (
     create_access_token,
@@ -28,18 +30,24 @@ from utils import helper_functions as hf
 from utils import file_helper_functions as fhf
 
 
+
 @ user_api.resource("/register")
 class RegisterUsers(Resource):
     #@ jwt_required()
     def post(self):
-        pw_hash = bcrypt.generate_password_hash(request.form.get('password'), 10)
         try:
             inputData = {
                 'username': request.form.get('username'),
                 'email': request.form.get('email'),
-                'password': pw_hash,
+                'password': request.form.get('password'),
 
             }
+            pw_hash = bcrypt.generate_password_hash(request.form.get('password'), 10)
+
+            ahf.check_email(inputData['email'])
+            inputData['username'] = ahf.check_username(inputData['username'])
+            ahf.check_password(inputData['password'])
+
             assert (
                 DB.find_one(User.collection, {
                             "username": inputData["username"]}) is None
@@ -58,7 +66,7 @@ class RegisterUsers(Resource):
 
             
             user = User(
-                username=inputData['username'], email=inputData['email'], password=inputData['password'], image=filename)
+                username=inputData['username'], email=inputData['email'], password=pw_hash, image=filename)
             registered_user = user.save()
 
             token = {}

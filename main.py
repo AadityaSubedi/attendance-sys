@@ -30,10 +30,11 @@ import dropbox
 @app.route("/", methods=['GET', 'POST'])
 def hello():
     file = request.files.get('image')
-    filename = f"{uuid.uuid4()}.jpg"
-    dbx = dropbox.Dropbox(api)
-    x = dbx.files_upload(file.stream.read(), path=f"/images/{filename}")
-    print(x)
+    if file:
+        filename = f"{uuid.uuid4()}.jpg"
+        dbx = dropbox.Dropbox(api)
+        x = dbx.files_upload(file.stream.read(), path=f"/images/{filename}")
+        print(x)
     return {"hey": "msg"}
 
 
