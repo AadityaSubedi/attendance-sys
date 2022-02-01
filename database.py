@@ -4,12 +4,10 @@ mongoDB queries.
 It is recommended to call these methods when querying the database
 rather than using the pymongo methods.
 """
-
 import os
 from typing import Any, Iterable, List, Mapping, Optional, Union
-import dropbox
+
 import pymongo
-from config import DBX_API_KEY
 from pymongo.results import (
     DeleteResult,
     InsertManyResult,
@@ -22,18 +20,19 @@ class DB:
     # Private variables (DONOT access outside the class)
     _build = os.environ.get("BUILD", "dev")
     _remote_url ="mongodb+srv://Attendence:BABA@cluster0.vopso.mongodb.net/test?retryWrites=true&w=majority"
-    _client = pymongo.MongoClient(_remote_url)
+    try:
+        _client = pymongo.MongoClient(_remote_url, serverSelectionTimeoutMS = 3000)
 
-    if _build == "dev":
-        database = _client.attendance_dev
-    elif _build == "staging":
-        database = _client.attendance_staging
-    elif _build == "prod":
-        database = _client.attendance
+        if _build == "dev":
+            database = _client.attendance_dev
+        elif _build == "staging":
+            database = _client.attendance_staging
+        elif _build == "prod":
+            database = _client.attendance
 
-    # dropbox image upload
-    dbx = dropbox.Dropbox(DBX_API_KEY)
-
+        _client.server_info()   #trigger exception if cannot connect to db
+    except:
+        print("Cannot connect to db")
 
     # The following methods are used when we expect to work with
     # only one document of a collection.
