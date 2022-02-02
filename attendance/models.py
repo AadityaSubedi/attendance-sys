@@ -3,7 +3,7 @@ from database import DB
 from bson.objectid import ObjectId
 import nepali_datetime
 
-
+#new teacher class
 class Teacher:
     
     """

@@ -29,7 +29,7 @@ from utils import helper_functions as hf
 from utils import file_helper_functions as fhf
 
 
-
+#updated for teacher
 @ user_api.resource("/register")
 class RegisterUsers(Resource):
     #@ jwt_required()
