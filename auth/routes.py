@@ -1,5 +1,6 @@
 from flask_jwt_extended.utils import get_jwt_identity
 from auth.models import User
+from attendance.models import Teacher
 from flask_restful import Resource
 from . import user_api
 from flask import Flask, request
@@ -9,14 +10,12 @@ from database import DB
 
 from . import auth_helper_functions as ahf
 
-from werkzeug.security import safe_str_cmp
 from flask_jwt_extended import (
     create_access_token,
     create_refresh_token,
     jwt_required,
     get_jwt_identity,
     get_jti
-
 )
 
 appBcrypt = Flask(__name__)
@@ -36,11 +35,20 @@ class RegisterUsers(Resource):
     #@ jwt_required()
     def post(self):
         try:
+            # subjects = defaultdict()
+            # subjectslist = request.form.get('subjectslist')
+            # classeslist = request.form.get('classeslist')
+            # subjects = 
+
+            #may not need this
+            subjects = loads(request.form.get('subjects'))
+
             inputData = {
                 'username': request.form.get('username'),
                 'email': request.form.get('email'),
                 'password': request.form.get('password'),
-
+                'fullname': request.form.get('fullname'),
+                'subjects': subjects
             }
             pw_hash = bcrypt.generate_password_hash(request.form.get('password'), 10)
 
@@ -67,7 +75,11 @@ class RegisterUsers(Resource):
             
             user = User(
                 username=inputData['username'], email=inputData['email'], password=pw_hash, image=filename)
+
+            #user_id = user =DB.find_one(User.collection, {"username": get_jwt_identity()})
+            teacher = Teacher(user_id=inputData['username'], name=inputData['fullname'], subjects=inputData['subjects'])
             registered_user = user.save()
+            registered_teacher = teacher.save()
 
             token = {}
             token['access_token'] = create_access_token(
@@ -161,7 +173,7 @@ class TokenRefresh(Resource):
         try:
             current_user = get_jwt_identity()
             new_token = create_access_token(identity=current_user, fresh=False)
-
+            print(current_user)
             token = {
                 'access_token': new_token,
             }
@@ -194,7 +206,7 @@ class Logout(Resource):
             # TODO: add this jti to  blacklist
             #  using redis or db
 
-            # return the command line output as the response
+            # return the command line output as the responses
             return (hf.success(
                     "User logout",
                     "user logged out succesfully",

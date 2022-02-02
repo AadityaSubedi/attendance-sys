@@ -44,7 +44,7 @@ while(not vid.stopped):
 
 
     # detect the faces in the frame
-    faces,frame = hf.get_faces(frame, isFrame=True)
+    faces,frame = get_faces(frame, isFrame=True)
     # Display the resulting frame
     # cv2.imshow('frame', frame)
 
@@ -54,7 +54,7 @@ while(not vid.stopped):
     # exit()
 
     # get embedding vector of face
-    face_embeddeds = [hf.get_embedding(fn_model, face) for face in faces]
+    face_embeddeds = [get_embedding(fn_model, face) for face in faces]
     # prediction for the faces
     yhat_classes = model.predict(face_embeddeds)
     yhat_prob = model.predict_proba(face_embeddeds)

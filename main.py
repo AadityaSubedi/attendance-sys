@@ -1,8 +1,10 @@
 from flask import Flask, Blueprint, send_from_directory, render_template
+import json
 from flask.templating import render_template_string
 from flask_jwt_extended import jwt_manager, JWTManager
 from attendance import attendance_bp
 from flask_restful import Resource, Api
+from config import JWT_SECRET_KEY
 from flask_cors import CORS
 from auth import user_bp
 from flask import request
@@ -20,7 +22,7 @@ app = Flask(__name__)
 app.register_blueprint(attendance_bp)
 app.register_blueprint(user_bp)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['JWT_SECRET_KEY'] = 'will_edit_this_secret_key'
+app.config['JWT_SECRET_KEY'] = JWT_SECRET_KEY
 
 
 
@@ -29,13 +31,7 @@ api ="sl.BBKkaWiIINg06-43YK3JxCV8JTjj9AUf2EEnDEZ57KLkgta_ge2h7PwSqjLnVfBm2nQwOG5
 import dropbox
 @app.route("/", methods=['GET', 'POST'])
 def hello():
-    file = request.files.get('image')
-    if file:
-        filename = f"{uuid.uuid4()}.jpg"
-        dbx = dropbox.Dropbox(api)
-        x = dbx.files_upload(file.stream.read(), path=f"/images/{filename}")
-        print(x)
-    return {"hey": "msg"}
+    return {'hey': "arpan"}
 
 
 
@@ -73,5 +69,5 @@ CORS(app)  # This will enable CORS for all routes
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
 

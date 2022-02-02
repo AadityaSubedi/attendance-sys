@@ -6,6 +6,8 @@ rather than using the pymongo methods.
 """
 import os
 from typing import Any, Iterable, List, Mapping, Optional, Union
+from config import DBX_API_KEY, MONGO_URI
+import dropbox
 
 import pymongo
 from pymongo.results import (
@@ -19,9 +21,8 @@ from pymongo.results import (
 class DB:
     # Private variables (DONOT access outside the class)
     _build = os.environ.get("BUILD", "dev")
-    _remote_url ="mongodb+srv://Attendence:BABA@cluster0.vopso.mongodb.net/test?retryWrites=true&w=majority"
     try:
-        _client = pymongo.MongoClient(_remote_url, serverSelectionTimeoutMS = 3000)
+        _client = pymongo.MongoClient(MONGO_URI, serverSelectionTimeoutMS = 3000)
 
         if _build == "dev":
             database = _client.attendance_dev
@@ -31,8 +32,13 @@ class DB:
             database = _client.attendance
 
         _client.server_info()   #trigger exception if cannot connect to db
-    except:
-        print("Cannot connect to db")
+
+        dbx = dropbox.Dropbox(DBX_API_KEY)
+    except Exception as e:
+        print(str(e))
+
+
+
 
     # The following methods are used when we expect to work with
     # only one document of a collection.
