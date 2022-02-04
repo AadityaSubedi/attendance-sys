@@ -11,28 +11,30 @@ from .constants import (path_to_facenet_model,
 from .helper_functions import get_faces, get_embedding
 from matplotlib import pyplot
 from .videoStream import WebcamVideoStream
-# facenet model
-# load the facenet model
-fn_model = load_model(path_to_facenet_model)
-print("Loaded Model")
-# load dataset
-data = load(path_to_face_embeddings)
-trainX, trainy, testX, testy = data["arr_0"], data["arr_1"], data["arr_2"], data["arr_3"]
-print(f"Dataset: train={trainX.shape} test={testX.shape} ")
 
 
-# label encode targets
-out_encoder = LabelEncoder()
-out_encoder.fit(trainy)
-trainy = out_encoder.transform(trainy)
-testy = out_encoder.transform(testy)
-
-#  load the saved model
-model = pickle.load(open(path_to_saved_model, 'rb'))
+def load_models():
+    # facenet model
+    # load the facenet model
+    fn_model = load_model(path_to_facenet_model)
+    print("Facenet Loaded Model")
+    # load dataset
+    data = load(path_to_face_embeddings)
+    trainX, trainy, testX, testy = data["arr_0"], data["arr_1"], data["arr_2"], data["arr_3"]
+    # label encode targets
+    out_encoder = LabelEncoder()
+    out_encoder.fit(trainy)
+    trainy = out_encoder.transform(trainy)
+    testy = out_encoder.transform(testy)
+    #  load the saved model
+    model = pickle.load(open(path_to_saved_model, 'rb'))
+    print("SVC Loaded Model")
+    return fn_model, model, out_encoder
 
 
 # define a video capture object
 def predict(time):
+    fn_model, model, out_encoder = load_models()
     vid = WebcamVideoStream(0, time=float(time)).start()
     names = set()
     while(not vid.stopped):
