@@ -2,6 +2,7 @@ from flask import Flask, Blueprint, send_from_directory, render_template
 from flask.templating import render_template_string
 from flask_jwt_extended import jwt_manager, JWTManager
 from attendance import attendance_bp
+from train import train_bp
 from flask_restful import Resource, Api
 from flask_cors import CORS
 from auth import user_bp
@@ -17,8 +18,9 @@ app = Flask(__name__)
 
 
 
-app.register_blueprint(attendance_bp)
 app.register_blueprint(user_bp)
+app.register_blueprint(attendance_bp)
+app.register_blueprint(train_bp)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['JWT_SECRET_KEY'] = 'will_edit_this_secret_key'
 

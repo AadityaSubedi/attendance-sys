@@ -9,7 +9,7 @@ from database import DB
 from . import helper_functions as hf
 
 
-def save_image(file: FileStorage) -> str:
+def save_image(file: FileStorage, dir="profilePic", subdir="") -> str:
     """
     Checks if the file is valid and saves it.
     Args:
@@ -20,11 +20,19 @@ def save_image(file: FileStorage) -> str:
 
     assert file.filename, "No image selected."
     extension = hf.is_image(file.filename)
+    if subdir:
+        directory = os.path.join(os.getcwd(), app.config["UPLOAD_FOLDER"], dir,subdir)
 
+    else:
+        directory = os.path.join(os.getcwd(), app.config["UPLOAD_FOLDER"], dir)
+
+    # !Create the directory if it doesn't exist
+    os.makedirs(directory, exist_ok=True)
     filename = f"{uuid.uuid4()}.{extension}"
-    DB.dbx.files_upload(file.stream.read(), path=f"/images/{filename}")
-
-    return filename
+    imageFileBytes = BytesIO(file.stream.read())
+    image = Image.open(imageFileBytes)
+    image.save(os.path.join(directory, filename), quality=50)
+    return 
 
 
 def remove_image(filename: str):

@@ -1,3 +1,4 @@
+from cProfile import label
 from flask_jwt_extended.utils import get_jwt_identity
 from auth.models import User
 from flask_restful import Resource
