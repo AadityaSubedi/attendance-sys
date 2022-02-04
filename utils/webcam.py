@@ -32,41 +32,46 @@ model = pickle.load(open(path_to_saved_model, 'rb'))
 
 
 # define a video capture object
-vid = WebcamVideoStream(0).start()
+def predict(time):
+    vid = WebcamVideoStream(0, time=float(time)).start()
+    names = set()
+    while(not vid.stopped):
+
+        # Capture the video frame
+        # by frame
+        frame = vid.read()
+        # cv2.imshow('frame', frame)
 
 
-while(not vid.stopped):
+        # detect the faces in the frame
+        faces,frame = get_faces(frame, isFrame=True)
+        # Display the resulting frame
+        # cv2.imshow('frame', frame)
 
-    # Capture the video frame
-    # by frame
-    frame = vid.read()
-    # cv2.imshow('frame', frame)
+        if not len(faces):
+            continue
+        # print(faces[0].shape)
+        # exit()
 
+        # get embedding vector of face
+        face_embeddeds = [get_embedding(fn_model, face) for face in faces]
+        # prediction for the faces
+        yhat_classes = model.predict(face_embeddeds)
+        yhat_prob = model.predict_proba(face_embeddeds)
 
-    # detect the faces in the frame
-    faces,frame = get_faces(frame, isFrame=True)
-    # Display the resulting frame
-    # cv2.imshow('frame', frame)
+        #get name 
+        i=0
+        predict_names = out_encoder.inverse_transform(yhat_classes)
+        for yhat_class in yhat_classes:
+            class_index = yhat_class
+            class_probability = yhat_prob[i,class_index] * 100
+            print("************Predicted: %s (%.3f)***********" % (predict_names[i], class_probability))
+            if class_probability > 95.0:
+                names.add(predict_names[i])
+            i+=1
+    return names
+        
 
-    if not len(faces):
-        continue
-    # print(faces[0].shape)
-    # exit()
-
-    # get embedding vector of face
-    face_embeddeds = [get_embedding(fn_model, face) for face in faces]
-    # prediction for the faces
-    yhat_classes = model.predict(face_embeddeds)
-    yhat_prob = model.predict_proba(face_embeddeds)
-
-    #get name 
-    i=0
-    predict_names = out_encoder.inverse_transform(yhat_classes)
-    for yhat_class in yhat_classes:
-        class_index = yhat_class
-        class_probability = yhat_prob[i,class_index] * 100
-        print("Predicted: %s (%.3f)" % (predict_names[i], class_probability))
-        i+=1
 
 
     

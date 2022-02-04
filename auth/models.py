@@ -42,5 +42,40 @@ class User:
         }
 
 
+#new teacher class
+class Teacher:
+    
+    """
+    {
+        user_id: ObjectId/str Username of user
+        name: str fullname
+        subject: dictionary with subject as keys and array of class as values
+        
+    }
+    """
+
+    collection = "teacher"
+
+    def __init__(
+        self,
+        user_id: str,
+        name: str,
+        subjects: dict,
+    ):
+        self.user_id = user_id
+        self.name = name
+        self.subjects = subjects
+
+    def json(self):
+        return {
+        'user_id': self.user_id, 
+        'name': self.name, 
+        'subjects':self.subjects, 
+        }
+
+    def save(self):
+        return DB.insert_one(self.collection, data=self.json())
+
+
 
 

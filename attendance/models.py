@@ -2,41 +2,7 @@ from typing import Union
 from database import DB
 from bson.objectid import ObjectId
 import nepali_datetime
-
-#new teacher class
-class Teacher:
-    
-    """
-    {
-        user_id: ObjectId/str Username of user
-        name: str fullname
-        subject: dictionary with subject as keys and array of class as values
-        
-    }
-    """
-
-    collection = "teacher"
-
-    def __init__(
-        self,
-        user_id: str,
-        name: str,
-        subjects: dict,
-    ):
-        self.user_id = user_id
-        self.name = name
-        self.subjects = subjects
-
-    def json(self):
-        return {
-        'user_id': self.user_id, 
-        'name': self.name, 
-        'subjects':self.subjects, 
-        }
-
-    def save(self):
-        return DB.insert_one(self.collection, data=self.json())
-        
+  
 
 class Classes:
     """
@@ -57,12 +23,13 @@ class Classes:
         self,
         class_name: str,
         subject_name: str,
-        attendees: set
+        attendees: list
     ):
         self.class_name = class_name
         self.subject_name = subject_name
         self.attendees = attendees  
         self.date = nepali_datetime.date.today().strftime('%K-%n-%D')
+        #self.date = nepali_datetime.date(1977, 10, 25).strftime('%K-%n-%D')
 
     def json(self):
         attendance = {
@@ -76,15 +43,34 @@ class Classes:
         }
 
     def save(self):
+        print("save")
         return DB.insert_one(self.collection, data=self.json())
 
+    def check_class(self):
+        print("check_class")
+        classes = DB.find_one(self.collection, query={'class_name': self.class_name})
+        if classes==None:
+            return False
+        else:
+            return True
+
+    def check_subject(self):
+        print("check_subject")
+        subject = DB.find_one(self.collection, query={'class_name': self.class_name, f'attendance.{self.subject_name}':{"$exists": True}})
+        if subject==None:
+            return False
+        else:
+            return True
+
     def add_subject(self):  
+        print("add_subject")
         new_subject = {
-                    self.date: self.attendes
+                    self.date: self.attendees
                 }  
         return DB.find_one_and_update(self.collection, query={'class_name': self.class_name}, data= {f'attendance.{self.subject_name}': new_subject}, action="$set")
 
     def add_date(self):
+        print("add_date")
         new_date = self.attendees
         return DB.find_one_and_update(self.collection, query={'class_name': self.class_name}, data= {f'attendance.{self.subject_name}.{self.date}': new_date}, action="$set")
 

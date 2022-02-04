@@ -26,8 +26,6 @@ app.config['JWT_SECRET_KEY'] = JWT_SECRET_KEY
 
 
 
-api ="sl.BBKkaWiIINg06-43YK3JxCV8JTjj9AUf2EEnDEZ57KLkgta_ge2h7PwSqjLnVfBm2nQwOG5BqSLCTccVWU1NPcICpA_siMNwKOuRKEDqT70vIJFT-dc5ZIOmLlhQ98kZJISDSPA"
-
 import dropbox
 @app.route("/", methods=['GET', 'POST'])
 def hello():

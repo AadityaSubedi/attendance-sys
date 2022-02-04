@@ -1,11 +1,9 @@
 from flask_jwt_extended.utils import get_jwt_identity
-from auth.models import User
-from attendance.models import Teacher
+from auth.models import User, Teacher
 from flask_restful import Resource
 from . import user_api
 from flask import Flask, request
 from flask_bcrypt import Bcrypt
-from .models import User
 from database import DB
 
 from . import auth_helper_functions as ahf
