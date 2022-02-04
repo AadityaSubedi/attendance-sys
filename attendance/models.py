@@ -19,16 +19,29 @@ class Classes:
 
     collection = "classes"
 
+    # def __init__(
+    #     self,
+    #     class_name: str,
+    #     subject_name: str,
+    #     attendees: list
+    # ):
+    #     self.class_name = class_name
+    #     self.subject_name = subject_name
+    #     self.attendees = attendees  
+    #     self.date = nepali_datetime.date.today().strftime('%K-%n-%D')
+    #     #self.date = nepali_datetime.date(1977, 10, 25).strftime('%K-%n-%D')
     def __init__(
         self,
-        class_name: str,
-        subject_name: str,
-        attendees: list
+        *args
     ):
-        self.class_name = class_name
-        self.subject_name = subject_name
-        self.attendees = attendees  
-        self.date = nepali_datetime.date.today().strftime('%K-%n-%D')
+        if len(args) == 1:              #FOR FINDING ALL DATES DATA
+            self.class_name = args[0]
+        elif len(args) == 3:
+            #FOR INSERTING DATA
+            self.class_name = args[0]
+            self.subject_name = args[1]
+            self.attendees = args[2]  
+            self.date = nepali_datetime.date.today().strftime('%K-%n-%D')
         #self.date = nepali_datetime.date(1977, 10, 25).strftime('%K-%n-%D')
 
     def json(self):
@@ -74,6 +87,9 @@ class Classes:
         new_date = self.attendees
         return DB.find_one_and_update(self.collection, query={'class_name': self.class_name}, data= {f'attendance.{self.subject_name}.{self.date}': new_date}, action="$set")
 
+    def find_attendance(self):
+        attendance = DB.find_one(self.collection, query={'class_name': self.class_name})   
+        return attendance   
 
 
 

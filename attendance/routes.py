@@ -1,4 +1,6 @@
-from flask import Flask
+from flask import Flask, jsonify
+import json
+from bson import json_util
 from attendance.models import Classes
 from auth.models import User
 from flask_restful import Resource
@@ -44,7 +46,7 @@ class TakeAttendance(Resource):
               global names
               names = webcam.predict(time)
               names = list(names)
-              class_attendance = Classes(class_name=class_name, subject_name=subject_name, attendees=names)
+              class_attendance = Classes(class_name, subject_name, names)
               if class_attendance.check_subject():
                 class_attendance.add_date()
               elif class_attendance.check_class():
@@ -59,7 +61,7 @@ class TakeAttendance(Resource):
             # return the command line output as the response
             return (hf.success(
                     "take attendance",
-                    "attendance started",
+                    f"attendance started for {attandence_time} minutes",
                     ),
                     200
                     )
@@ -72,5 +74,62 @@ class TakeAttendance(Resource):
                     ),
                     401
                     )
+
+
+@ attendance_api.resource("/getattendancelist")
+class GetAttendanceList(Resource):
+  def post(self):
+    try:
+      class_name = request.form.get('classname')
+      subject_name = request.form.get('subjectname')
+      class_attendance = Classes(class_name)
+      class_attendance = class_attendance.find_attendance()   
+      attendance_list = class_attendance['attendance'][subject_name]
+      return (hf.success(
+                    "get attendance list",
+                    f"attendance list for {class_name}, ({subject_name}).",
+                    attendance_list
+                    ),
+                    200
+                    )
+
+    except Exception as e:
+        return (hf.failure(
+                "get attendance list",
+                str(e),
+                ),
+                401
+                )
+
+@ attendance_api.resource("/getattendance")
+class GetAttendance(Resource):
+    # @ jwt_required()
+    def post(self):
+        try:
+            inputData = request.get_json()
+            subject_name, date = inputData['subjectname'], inputData['date']
+
+            class_attendance = Classes(inputData['classname'])
+            class_attendance = class_attendance.find_attendance()
+            attendance = class_attendance['attendance'][subject_name][date]
+            # return the command line output as the response
+            return (hf.success(
+                    "get attendance",
+                    f"attendance for {inputData['date']}.",
+                    attendance
+                    ),
+                    200
+                    )
+
+        except Exception as e:
+            return (hf.failure(
+
+                    "get attendance",
+                    str(e),
+                    ),
+                    401
+                    )
+
+
 
 
