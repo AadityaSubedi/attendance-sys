@@ -337,4 +337,11 @@ $RECYCLE.BIN/
 *.npz
 # test python files
 test.*
+*.jpg
+*.png
+*.gif
+*.bmp
+*.ico
+*.svg
+file*
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,windows,python,flask,linux,macos

@@ -40,6 +40,7 @@ def load_faces(directory):
     path = directory + filename
     # get face
     face = extract_face(path)
+    assert face.size, f"Failed to extract face from {path}"
     # store
     faces.append(face)
   return faces

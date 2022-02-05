@@ -32,7 +32,7 @@ def save_image(file: FileStorage, dir="profilePic", subdir="") -> str:
     imageFileBytes = BytesIO(file.stream.read())
     image = Image.open(imageFileBytes)
     image.save(os.path.join(directory, filename), quality=50)
-    return 
+    return filename
 
 
 def remove_image(filename: str):

@@ -3,9 +3,12 @@ from flask_jwt_extended.utils import get_jwt_identity
 from auth.models import User
 from flask_restful import Resource
 from . import train_api
-from flask import Flask, request
+from flask import Flask, request, send_file
 from flask_bcrypt import Bcrypt
 from database import DB
+from io import BytesIO
+import uuid
+import os
 
 from . import train_helper_functions as thf
 
@@ -29,6 +32,46 @@ from utils import file_helper_functions as fhf
 from .models import Cache
 from .train_helper_functions import start_training
 from threading import Thread
+from PIL import Image
+
+
+
+@train_api.resource("/check")
+class CheckData(Resource):
+    # @ jwt_required()
+    def post(self):
+        try:
+            images = request.files.getlist("images")
+            response ={}
+
+            for image in images:
+                pixels = hf.extract_face(image)
+                filename = f"{uuid.uuid4()}.jpg"
+                if pixels.size:
+                    Image.fromarray(pixels).save(f"uploads/temp/{filename}") 
+                else: 
+                    filename = "404.jpg"
+                response[image.filename] = filename
+            return (hf.success(
+                    "data check",
+                    "data checking successful",
+                    response
+                    ),
+                    200
+                    )
+
+        except Exception as e:
+            return (hf.failure(
+
+                    "data check",
+                    str(e),
+                    ),
+                    500
+                    )
+
+   
+
+
 
 
 @train_api.resource("/start")
@@ -73,12 +116,15 @@ class UploadData(Resource):
     # @ jwt_required()
     def post(self):
         try:
+            cacheInstance = DB.find_one(Cache.collection, {'type': 'cache'})
+            isModelTraining = cacheInstance['ModelTraining']['isModelTraining']
+            assert not isModelTraining, f"Model is already training. Started at: {cacheInstance['ModelTraining']['lastStartedTime'] } "
+
             # uploads the confirmed data to the local location
             images = request.files.getlist("images")
             label = request.form.get("label")
             for image in images:
                 fhf.save_image(image,dir = "datasets",subdir=label)
-            # (fhf.save_image(image,dir=label) for image in images)
 
         
 
