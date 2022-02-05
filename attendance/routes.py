@@ -29,8 +29,6 @@ from flask_jwt_extended import (
     get_jti
 )
 
-app = Flask("after_response")
-
 
 @ attendance_api.resource("/takeattendance")
 class TakeAttendance(Resource):
@@ -107,11 +105,11 @@ class GetAttendance(Resource):
     def post(self):
         try:
             inputData = request.get_json()
-            subject_name, date = inputData['subjectname'], inputData['date']
+            subject_name, class_name, date = inputData['subjectname'], inputData['classname'], inputData['date']
 
-            class_attendance = Classes(inputData['classname'])
-            class_attendance = class_attendance.find_attendance()
-            attendance = class_attendance['attendance'][subject_name][date]
+            class_attendance = Classes(class_name)
+            classattendance = class_attendance.find_attendance()
+            attendance = classattendance['attendance'][subject_name][date]
             # return the command line output as the response
             return (hf.success(
                     "get attendance",
@@ -125,6 +123,44 @@ class GetAttendance(Resource):
             return (hf.failure(
 
                     "get attendance",
+                    str(e),
+                    ),
+                    401
+                    )
+
+            
+
+@ attendance_api.resource("/getinfo")
+class GetStudentInfo(Resource):
+    # @ jwt_required()
+    def post(self):
+        try:
+            class_name = request.form.get('classname')
+            subject_name = request.form.get('subjectname')
+            
+            class_attendance = Classes(class_name)
+            classattendance = class_attendance.find_attendance()
+            attendance = classattendance['attendance'][subject_name]
+            total_days = len(attendance)
+            working_days = ahf.countDays(attendance)
+            return_item = {
+                          'total_days': total_days,
+                          'working_days': working_days
+                          }
+
+            # return the command line output as the response
+            return (hf.success(
+                    "get student info",
+                    f"sucessfully loaded.",
+                    return_item
+                    ),
+                    200
+                    )
+
+        except Exception as e:
+            return (hf.failure(
+
+                    "get student info",
                     str(e),
                     ),
                     401

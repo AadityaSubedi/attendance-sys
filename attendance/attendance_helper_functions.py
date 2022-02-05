@@ -1,5 +1,7 @@
 import json
+from platform import python_branch
 from database import DB
+from collections import defaultdict
 
 
 # def populate_subjects(program: dict) -> dict:
@@ -78,6 +80,19 @@ class AfterResponseMiddleware:
         except Exception:
             traceback.print_exc()
             return iterator
+
+
+def countDays(attendance):
+    all_attendees = list()
+    for attendees_list in attendance.values():
+        for attendee in attendees_list:
+            all_attendees.append(attendee)
+
+    working_days = defaultdict(int)
+    for attendee in all_attendees:
+        working_days[attendee] += 1
+    return dict(working_days)
+
 
 
 

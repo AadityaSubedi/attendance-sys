@@ -16,8 +16,9 @@ from flask_jwt_extended import (
     get_jti
 )
 
-appBcrypt = Flask(__name__)
-bcrypt = Bcrypt(appBcrypt)
+# from flask import current_app as app
+bcryptapp = Flask(__name__)
+bcrypt = Bcrypt(bcryptapp)
 
 
 from json import loads
