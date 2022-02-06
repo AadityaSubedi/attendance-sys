@@ -17,6 +17,10 @@ def extract_face(filename, required_size=(160, 160)):
   detector = MTCNN()
   # detect faces in the image
   results = detector.detect_faces(pixels)
+
+  # if no face detected return None
+  if not results:
+      return asarray(list())
   # extract the bounding box from the first face
   x1, y1, width, height = results[0]["box"]
   # bug fix

@@ -281,6 +281,7 @@ Temporary Items
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 
 ### VisualStudioCode ###
+.vscode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -337,6 +338,13 @@ $RECYCLE.BIN/
 *.npz
 # test python files
 test.*
+*.jpg
+*.png
+*.gif
+*.bmp
+*.ico
+*.svg
+file*
 # config files
 config.py
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,windows,python,flask,linux,macos

@@ -33,7 +33,7 @@ class DB:
 
         _client.server_info()   #trigger exception if cannot connect to db
 
-        dbx = dropbox.Dropbox(DBX_API_KEY)
+        # dbx = dropbox.Dropbox(DBX_API_KEY)
     except Exception as e:
         print(str(e))
 
