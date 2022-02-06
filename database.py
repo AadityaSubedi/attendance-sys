@@ -7,7 +7,7 @@ rather than using the pymongo methods.
 
 import os
 from typing import Any, Iterable, List, Mapping, Optional, Union
-import dropbox
+# import dropbox
 import pymongo
 from config import DBX_API_KEY
 from pymongo.results import (
@@ -32,7 +32,7 @@ class DB:
         database = _client.attendance
 
     # dropbox image upload
-    dbx = dropbox.Dropbox(DBX_API_KEY)
+    # dbx = dropbox.Dropbox(DBX_API_KEY)
 
 
     # The following methods are used when we expect to work with

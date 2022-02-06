@@ -12,12 +12,9 @@ from flask import Response
 import os
 
 
-
 UPLOAD_FOLDER = 'uploads'
 
 app = Flask(__name__)
-
-
 
 
 app.register_blueprint(user_bp)
@@ -27,24 +24,25 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['JWT_SECRET_KEY'] = 'will_edit_this_secret_key'
 
 
+# import dropbox
+# @app.route("/", methods=['GET', 'POST'])
+# def hello():
+#     return {1:2}
 
 
-import dropbox
-@app.route("/", methods=['GET', 'POST'])
-def hello():
-    # return {1:2}
-    ...
-
-
+@app.route('/')
+def index():
+    @after_this_request
+    def add_header(response):
+        print("after request")
+        return response
+    return 'Hello World!'
 
 
 @app.route('/face/<string:imagename>', methods=['GET', 'POST'])
 def download_and_remove_detected_face(imagename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                'temp/'+imagename)
-
-
-
 
 
 jwt = JWTManager(app)
@@ -70,4 +68,3 @@ CORS(app)  # This will enable CORS for all routes
 
 if __name__ == "__main__":
     app.run()
-
