@@ -4,6 +4,7 @@ from flask_jwt_extended import jwt_manager, JWTManager
 from attendance import attendance_bp
 from train import train_bp
 from flask_restful import Resource, Api
+from config import JWT_SECRET_KEY
 from flask_cors import CORS
 from auth import user_bp
 from flask import request
@@ -21,7 +22,7 @@ app.register_blueprint(user_bp)
 app.register_blueprint(attendance_bp)
 app.register_blueprint(train_bp)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['JWT_SECRET_KEY'] = 'will_edit_this_secret_key'
+app.config['JWT_SECRET_KEY'] = JWT_SECRET_KEY
 
 
 # import dropbox
