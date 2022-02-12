@@ -2,7 +2,7 @@
 // import '../flutter_flow/flutter_flow_theme.dart';
 // import '../flutter_flow/flutter_flow_util.dart';
 
-// ignore_for_file: import_of_legacy_library_into_null_safe, unused_import
+// ignore_for_file: import_of_legacy_library_into_null_safe, unused_import, prefer_const_constructors
 
 //import 'package:attendancesys_flutter/Screens/LogIn.dart';
 import 'package:attendancesys_flutter/UI/Pages/AttendanceList.dart';
@@ -29,7 +29,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
   String subsChoose = 'AI';
   String classsChoose = '075BCTAB';
 
-  List<DropdownMenuItem<String>> getList() {
+  List<DropdownMenuItem<String>> getSubList() {
     List<DropdownMenuItem<String>> subChoose = [];
     for (String sub in subjects) {
       var newItem = DropdownMenuItem(
@@ -170,7 +170,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height * 0.05,
                         decoration: BoxDecoration(
-                          color: Color(0xFF265784),
+                          color: const Color(0xFF265784),
                           borderRadius: BorderRadius.circular(0),
                           border: Border.all(
                             color: Colors.white,
@@ -182,8 +182,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                           height: MediaQuery.of(context).size.height * 1,
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: const Radius.circular(0),
+                            borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(0),
                               bottomRight: Radius.circular(0),
                               topLeft: Radius.circular(100),
                               topRight: Radius.circular(0),
@@ -231,7 +231,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                         subsChoose = newValue!;
                       });
                     },
-                    items:  getList(),
+                    items:  getSubList(),
                   ),
 
                   // child: FlutterFlowDropDown(
@@ -271,7 +271,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                           classsChoose = newValue!;
                         });
                       },
-                      items: getList()
+                      items: getClassList()
                     )
 
                     // child: FlutterFlowDropDown(
