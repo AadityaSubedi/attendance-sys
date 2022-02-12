@@ -195,7 +195,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                             child: Text(
                               'Full Name Here',
                               style: TextStyle(
-                                fontFamily: 'Poppins',
+                                fontFamily: 'Roboto',
                                 color: Color(0xFF265784),
                                 fontSize: 18,
                                 fontWeight: FontWeight.normal,
@@ -235,7 +235,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
 
                 Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                    child: Container(
+                    child: SizedBox(
                       width: 230,
                       child: DropdownButton<String>(
                         hint: Text('Choose class'),

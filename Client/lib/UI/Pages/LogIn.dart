@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:attendancesys_flutter/UI/Pages/Dashboard.dart';
 import 'package:attendancesys_flutter/UI/Pages/Register.dart';
 import 'package:attendancesys_flutter/main.dart';
@@ -281,6 +283,10 @@ class _LogInWidgetState extends State<LogInWidget> {
                   Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                     child:ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: colorSecondary,
+                        elevation: 4,
+                      ),
                       onPressed: () async {
                         await Navigator.push(
                           context,
@@ -310,7 +316,10 @@ class _LogInWidgetState extends State<LogInWidget> {
                             fontSize: 16,
                           ),
                         ),
-                       ElevatedButton(
+                       TextButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.white,
+                          ),
                           onPressed: () async {
                             await Navigator.push(
                               context,

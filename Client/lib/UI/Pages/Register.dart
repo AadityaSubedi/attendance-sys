@@ -139,7 +139,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             padding:
                                 const EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
                             child: AutoSizeText(
-                              'WelcomeOnboard!',
+                              'Welcome On board!',
                               style: GoogleFonts.getFont(
                                 'Roboto',
                                 fontWeight: FontWeight.w800,
@@ -504,7 +504,10 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                                       fontSize: 14,
                                                     ),
                                                 ),
-                                               ElevatedButton(
+                                               TextButton(
+                                                  style: TextButton.styleFrom(
+                                                    primary: Colors.white,
+                                                  ),
                                                   onPressed: () async {
                                                     await Navigator.push(
                                                       context,
@@ -789,6 +792,9 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                               const EdgeInsetsDirectional.fromSTEB(
                                                   0, 20, 0, 0),
                                           child:ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              primary: colorSecondary,
+                                            ),
                                             onPressed: () async {
                                               await Navigator.push(
                                                 context,
@@ -832,7 +838,10 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                                       fontSize: 14,
                                                     ),
                                               ),
-                                             ElevatedButton(
+                                             TextButton(
+                                                style: TextButton.styleFrom(
+                                                  primary: Colors.white,
+                                                ),
                                                 onPressed: () async {
                                                   await Navigator.push(
                                                     context,
