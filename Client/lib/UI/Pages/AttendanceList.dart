@@ -33,7 +33,7 @@ class _AttendanceListWidgetState extends State<AttendanceListWidget> {
               Align(
                 alignment: AlignmentDirectional(-0.5, 0),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 27, 0, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 45, 0, 0),
                   child: Text(
                     'Smart \nAttendance',
                     style: TextStyle(
