@@ -11,6 +11,7 @@ import 'package:attendancesys_flutter/UI/Pages/StudentInfo.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class DashboardWidget extends StatefulWidget {
   const DashboardWidget({Key? key}) : super(key: key);
@@ -24,35 +25,27 @@ class _DashboardWidgetState extends State<DashboardWidget> {
   late String dropDownValue2;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  List<String> subjects = ['AI', 'DBMS', 'OOAD'];
-  List<String> classes = ['075BCTAB', '075BCTCD'];
-  String subsChoose = 'AI';
+  List<String> subjects = ['AI', 'DBMS', 'OOAD','Operating System', 'Embedded System'];
+  List<String> classes = ['075BCTAB', '075BCTCD', '075BCEAB', '075BCECD'];
+  String subChoose = 'AI';
   String classsChoose = '075BCTAB';
 
-  List<DropdownMenuItem<String>> getSubList() {
-    List<DropdownMenuItem<String>> subChoose = [];
-    for (String sub in subjects) {
+  List<DropdownMenuItem<String>> getList(lists) {
+    List<DropdownMenuItem<String>> dropdownItems = [];
+    for (String each in lists) {
       var newItem = DropdownMenuItem(
-        child: Text(sub),
-        value: sub,
+        child: Text(each,
+        style:TextStyle(fontSize: 18,
+        fontFamily: 'Roboto',
+        color: Color(0xFF265784),
+        ),
+        ),
+        value: each,
       );
-      subChoose.add(newItem);
+      dropdownItems.add(newItem);
     }
 
-    return subChoose;
-  }
-
-  List<DropdownMenuItem<String>> getClassList() {
-    List<DropdownMenuItem<String>> classChoose = [];
-    for (String sub in classes) {
-      var newItem = DropdownMenuItem(
-        child: Text(sub),
-        value: sub,
-      );
-      classChoose.add(newItem);
-    }
-
-    return classChoose;
+    return dropdownItems;
   }
 
   @override
@@ -217,79 +210,52 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
 
-                  child: DropdownButton<String>(
-                    value: subsChoose,
-                    icon: const Icon(Icons.arrow_downward),
-                    elevation: 16,
-                    style: const TextStyle(color: Colors.deepPurple),
-                    underline: Container(
-                      height: 2,
-                      color: Colors.deepPurpleAccent,
-                    ),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        subsChoose = newValue!;
-                      });
-                    },
-                    items:  getSubList(),
-                  ),
-
-                  // child: FlutterFlowDropDown(
-                  //   options: [
-                  //     'Aritificial Intelligence',
-                  //     'DBMS',
-                  //     'Operating System'
-                  //   ].toList(),
-                  //   onChanged: (val) => setState(() => dropDownValue1 = val),
-                  //   width: MediaQuery.of(context).size.width * 0.8,
-                  //   height: 50,
-                  //   textStyle: TextStyle(
-                  //     fontFamily: 'Roboto',
-                  //     color: Color(0xFF265784),
-                  //   ),
-                  //   hintText: 'Choose Subject.....',
-                  //   fillColor: Colors.white,
-                  //   elevation: 4,
-                  //   borderColor: Colors.white,
-                  //   borderRadius: 10,
-                  //   margin: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
-                  // ),
-                ),
-                Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                  child: SizedBox(
+                    width: 230,
                     child: DropdownButton<String>(
-                      value: classsChoose,
-                      icon: const Icon(Icons.arrow_downward),
+                      hint: Text('Choose Subject'),
+                      isExpanded: true,
+                      value: subChoose,
+                      //icon: const Icon(Icons.arrow_downward),
                       elevation: 16,
-                      style: const TextStyle(color: Colors.deepPurple),
+                      style:  TextStyle(color: HexColor('#265784')),
                       underline: Container(
                         height: 2,
-                        color: Colors.deepPurpleAccent,
+                        color: HexColor('#265784'),
                       ),
                       onChanged: (String? newValue) {
                         setState(() {
-                          classsChoose = newValue!;
+                          subChoose = newValue!;
                         });
                       },
-                      items: getClassList()
-                    )
+                      items:  getList(subjects),
+                    ),
+                  ),
+                ),
 
-                    // child: FlutterFlowDropDown(
-                    //   options: ['075BCTAB', '075BCTCD', '075BEIAB'].toList(),
-                    //   onChanged: (val) => setState(() => dropDownValue2 = val),
-                    //   width: MediaQuery.of(context).size.width * 0.8,
-                    //   height: 50,
-                    //   textStyle: TextStyle(
-                    //     fontFamily: 'Roboto',
-                    //     color: Color(0xFF265784),
-                    //   ),
-                    //   hintText: 'Choose Class.....',
-                    //   fillColor: Colors.white,
-                    //   elevation: 4,
-                    //   borderColor: Colors.white,
-                    //   borderRadius: 10,
-                    //   margin: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
-                    // ),
+                Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                    child: Container(
+                      width: 230,
+                      child: DropdownButton<String>(
+                        hint: Text('Choose class'),
+                        isExpanded: true,
+                        value: classsChoose,
+                        //icon: const Icon(Icons.arrow_downward),
+                        elevation: 16,
+                        style: TextStyle(color: HexColor('#265784')),
+                        underline: Container(
+                          height: 2,
+                          color: HexColor('#265784'),
+                        ),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            classsChoose = newValue!;
+                          });
+                        },
+                        items: getList(classes)
+                      ),
+                    )
                     ),
                 Expanded(
                   child: Padding(

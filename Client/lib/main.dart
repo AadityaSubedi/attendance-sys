@@ -3,7 +3,7 @@ import 'package:attendancesys_flutter/UI/Pages/LogIn.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-Color color1 = HexColor("#265784");
+Color colror1 = HexColor("#265784");
 Color colorSecondary = HexColor("#ea734d");
 Color colorTertiary = HexColor("#88b74093");  
 
