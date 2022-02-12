@@ -214,7 +214,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            20),
+                                                            22),
                                                   ),
                                                   focusedBorder:
                                                       OutlineInputBorder(
@@ -224,7 +224,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            20),
+                                                            22),
                                                   ),
                                                   prefixIcon: const Icon(
                                                     Icons
@@ -291,7 +291,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            20),
+                                                            25),
                                                   ),
                                                   focusedBorder:
                                                       OutlineInputBorder(
@@ -301,7 +301,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            20),
+                                                            25),
                                                   ),
                                                   prefixIcon: const Icon(
                                                     Icons.email_outlined,
@@ -361,7 +361,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            20),
+                                                            25),
                                                   ),
                                                   focusedBorder:
                                                       OutlineInputBorder(
@@ -371,7 +371,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            20),
+                                                            25),
                                                   ),
                                                   prefixIcon: const Icon(
                                                     Icons.lock_outlined,
@@ -433,7 +433,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            20),
+                                                            25),
                                                   ),
                                                   focusedBorder:
                                                       OutlineInputBorder(
@@ -443,7 +443,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            20),
+                                                            25),
                                                   ),
                                                   prefixIcon: const Icon(
                                                     Icons.lock_outlined,
@@ -501,7 +501,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                                   style: TextStyle(
                                                       fontFamily: 'Poppins',
                                                       color: HexColor("#7f265784"),
-                                                      fontSize: 14,
+                                                      fontSize: 16,
                                                     ),
                                                 ),
                                                TextButton(
@@ -522,7 +522,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                                       style: TextStyle(
                                                         fontFamily: 'Poppins',
                                                         color: colorSecondary,
-                                                        fontSize: 12,
+                                                        fontSize: 16,
                                                       ),
                                                     ),
                                                  
@@ -568,7 +568,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                                       ),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              20),
+                                                              25),
                                                     ),
                                                     focusedBorder:
                                                         OutlineInputBorder(
@@ -579,7 +579,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                                       ),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              20),
+                                                              25),
                                                     ),
                                                     prefixIcon: const Icon(
                                                       Icons
@@ -648,7 +648,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                                     width: 3,
                                                   ),
                                                   borderRadius:
-                                                      BorderRadius.circular(20),
+                                                      BorderRadius.circular(25),
                                                 ),
                                                 focusedBorder:
                                                     OutlineInputBorder(
@@ -657,7 +657,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                                     width: 3,
                                                   ),
                                                   borderRadius:
-                                                      BorderRadius.circular(20),
+                                                      BorderRadius.circular(25),
                                                 ),
                                                 prefixIcon: const Icon(
                                                   Icons.subject,
@@ -721,7 +721,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                                     width: 3,
                                                   ),
                                                   borderRadius:
-                                                      BorderRadius.circular(20),
+                                                      BorderRadius.circular(25),
                                                 ),
                                                 focusedBorder:
                                                     OutlineInputBorder(
@@ -730,7 +730,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                                     width: 3,
                                                   ),
                                                   borderRadius:
-                                                      BorderRadius.circular(20),
+                                                      BorderRadius.circular(25),
                                                 ),
                                                 prefixIcon: const Icon(
                                                   Icons.person_outline_rounded,
@@ -775,7 +775,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                           style: TextStyle(
                                             fontFamily: 'Poppins',
                                             color: Color(0xAFEA734D),
-                                            fontSize: 12,
+                                            fontSize: 14,
                                           ),
                                         ),
                                         const Align(
@@ -784,7 +784,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                           child: Icon(
                                             Icons.add_circle_outline,
                                             color: Color(0xFFEA734D),
-                                            size: 24,
+                                            size: 30,
                                           ),
                                         ),
                                         Padding(
@@ -793,7 +793,12 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                                   0, 20, 0, 0),
                                           child:ElevatedButton(
                                             style: ElevatedButton.styleFrom(
+                                              minimumSize: Size(120, 50),
                                               primary: colorSecondary,
+                                              elevation: 6,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(30.0),
+                                    ),
                                             ),
                                             onPressed: () async {
                                               await Navigator.push(
@@ -813,7 +818,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                               style: TextStyle(
                                                 fontFamily: 'Poppins',
                                                 color: Colors.white,
-                                                fontSize: 12,
+                                                fontSize: 18,
                                               ),
                                             ),
                                           ),
@@ -835,7 +840,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                                     TextStyle(
                                                       fontFamily: 'Poppins',
                                                       color: HexColor("#7f265784"),
-                                                      fontSize: 14,
+                                                      fontSize: 16,
                                                     ),
                                               ),
                                              TextButton(
@@ -856,7 +861,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                                       style: TextStyle(
                                                         fontFamily: 'Poppins',
                                                         color: colorSecondary,
-                                                        fontSize: 12,
+                                                        fontSize: 16,
                                                       ),
                                                     ),
                                               ),

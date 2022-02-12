@@ -25,20 +25,28 @@ class _DashboardWidgetState extends State<DashboardWidget> {
   late String dropDownValue2;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  List<String> subjects = ['AI', 'DBMS', 'OOAD','Operating System', 'Embedded System'];
+  List<String> subjects = [
+    'AI',
+    'DBMS',
+    'OOAD',
+    'Operating System',
+    'Embedded System'
+  ];
   List<String> classes = ['075BCTAB', '075BCTCD', '075BCEAB', '075BCECD'];
-  String subChoose = 'AI';
-  String classsChoose = '075BCTAB';
+  String? subChoose;
+  String? classsChoose;
 
   List<DropdownMenuItem<String>> getList(lists) {
     List<DropdownMenuItem<String>> dropdownItems = [];
     for (String each in lists) {
       var newItem = DropdownMenuItem(
-        child: Text(each,
-        style:TextStyle(fontSize: 18,
-        fontFamily: 'Roboto',
-        color: Color(0xFF265784),
-        ),
+        child: Text(
+          each,
+          style: TextStyle(
+            fontSize: 18,
+            fontFamily: 'Roboto',
+            color: Color(0xFF265784),
+          ),
         ),
         value: each,
       );
@@ -120,7 +128,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                   },
                   child: Icon(
                     Icons.logout,
-                    color: Colors.black,
+                    color: Colors.white,
                     size: 25,
                   ),
                 ),
@@ -209,16 +217,18 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                 ),
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-
                   child: SizedBox(
                     width: 230,
                     child: DropdownButton<String>(
-                      hint: Text('Choose Subject'),
+                      hint: Text('Choose Subject',
+                      style: TextStyle(
+                        color: HexColor('#265784'),
+                      ),),
                       isExpanded: true,
                       value: subChoose,
                       //icon: const Icon(Icons.arrow_downward),
                       elevation: 16,
-                      style:  TextStyle(color: HexColor('#265784')),
+                      style: TextStyle(color: HexColor('#265784')),
                       underline: Container(
                         height: 2,
                         color: HexColor('#265784'),
@@ -228,35 +238,35 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                           subChoose = newValue!;
                         });
                       },
-                      items:  getList(subjects),
+                      items: getList(subjects),
                     ),
                   ),
                 ),
-
                 Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                     child: SizedBox(
                       width: 230,
                       child: DropdownButton<String>(
-                        hint: Text('Choose class'),
-                        isExpanded: true,
-                        value: classsChoose,
-                        //icon: const Icon(Icons.arrow_downward),
-                        elevation: 16,
-                        style: TextStyle(color: HexColor('#265784')),
-                        underline: Container(
-                          height: 2,
-                          color: HexColor('#265784'),
-                        ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            classsChoose = newValue!;
-                          });
-                        },
-                        items: getList(classes)
-                      ),
-                    )
-                    ),
+                          hint: Text('Choose class',
+                          style: TextStyle(
+                        color: HexColor('#265784'),
+                            ),),
+                          isExpanded: true,
+                          value: classsChoose,
+                          //icon: const Icon(Icons.arrow_downward),
+                          elevation: 16,
+                          style: TextStyle(color: HexColor('#265784')),
+                          underline: Container(
+                            height: 2,
+                            color: HexColor('#265784'),
+                          ),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              classsChoose = newValue!;
+                            });
+                          },
+                          items: getList(classes)),
+                    )),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
@@ -334,7 +344,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                 await Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const AttendanceListWidget(),
+                                    builder: (context) =>
+                                        const AttendanceListWidget(),
                                     // AttendanceListWidget(),
                                   ),
                                 );
@@ -415,7 +426,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                 await Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const StudentInfoWidget(),
+                                    builder: (context) =>
+                                        const StudentInfoWidget(),
                                     //StudentInfoWidget(),
                                   ),
                                 );

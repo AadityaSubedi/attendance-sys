@@ -178,14 +178,14 @@ class _LogInWidgetState extends State<LogInWidget> {
                               color: Color(0x3F265784),
                               width: 3,
                             ),
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(25),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
                               color: Color(0x3F265784),
                               width: 3,
                             ),
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(25),
                           ),
                           prefixIcon: const Icon(
                             Icons.person_outline_rounded,
@@ -235,14 +235,14 @@ class _LogInWidgetState extends State<LogInWidget> {
                               color: Color(0x3F265784),
                               width: 3,
                             ),
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(25),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
                               color: Color(0x3F265784),
                               width: 3,
                             ),
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(25),
                           ),
                           prefixIcon: const Icon(
                             Icons.lock_outlined,
@@ -283,10 +283,15 @@ class _LogInWidgetState extends State<LogInWidget> {
                   Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                     child:ElevatedButton(
+                      
                       style: ElevatedButton.styleFrom(
+                        minimumSize: Size(120, 50),
                         primary: colorSecondary,
-                        elevation: 4,
-                      ),
+                        elevation: 6,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+               ),
+                        ),
                       onPressed: () async {
                         await Navigator.push(
                           context,
@@ -298,7 +303,10 @@ class _LogInWidgetState extends State<LogInWidget> {
                           ),
                         );
                       },
-                      child: const Text('LogIn'),
+                      child: const Text('LogIn',
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),),
                     ),
                   ),
                   Padding(
@@ -333,7 +341,7 @@ class _LogInWidgetState extends State<LogInWidget> {
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             color: colorSecondary,
-                            fontSize: 12,
+                            fontSize: 16,
                           ),
                         ),
                        ),

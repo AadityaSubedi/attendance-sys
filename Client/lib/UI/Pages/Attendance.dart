@@ -92,7 +92,7 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                   },
                   child: Icon(
                     Icons.logout,
-                    color: Colors.black,
+                    color: Colors.white,
                     size: 25,
                   ),
                 ),

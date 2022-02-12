@@ -1,10 +1,24 @@
-
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, non_constant_identifier_names
 
 import 'package:attendancesys_flutter/UI/Pages/Dashboard.dart';
 import 'package:attendancesys_flutter/UI/Pages/LogIn.dart';
 import 'package:attendancesys_flutter/main.dart';
 import 'package:flutter/material.dart';
+
+class Students {
+  final String roll_no;
+  final int present_days;
+
+  const Students({
+    required this.roll_no,
+    required this.present_days,
+  });
+}
+
+final columns = ['Roll no', 'Present Days'];
+final allStudents = <Students>[
+  Students(roll_no: '075BCT001', present_days: 4),
+];
 
 class StudentInfoWidget extends StatefulWidget {
   const StudentInfoWidget({Key? key}) : super(key: key);
@@ -14,7 +28,7 @@ class StudentInfoWidget extends StatefulWidget {
 }
 
 class _StudentInfoWidgetState extends State<StudentInfoWidget> {
-  late bool checkboxListTileValue1 =  false;
+  late bool checkboxListTileValue1 = false;
   late bool checkboxListTileValue2 = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -58,6 +72,7 @@ class _StudentInfoWidgetState extends State<StudentInfoWidget> {
               Align(
                 alignment: AlignmentDirectional(0.85, 0),
                 child: InkWell(
+                  
                   onTap: () async {
                     await showDialog(
                       context: context,
@@ -90,7 +105,7 @@ class _StudentInfoWidgetState extends State<StudentInfoWidget> {
                   },
                   child: Icon(
                     Icons.logout,
-                    color: Colors.black,
+                    color: Colors.white,
                     size: 25,
                   ),
                 ),
@@ -209,6 +224,14 @@ class _StudentInfoWidgetState extends State<StudentInfoWidget> {
                     ],
                   ),
                 ),
+                Table(
+                  border: TableBorder.all(),
+                  columnWidths: {
+                    0: FractionColumnWidth(0.7),
+                    1: FractionColumnWidth(0.3),
+                  },
+                  children: [buildRow(columns)],
+                ),
                 CheckboxListTile(
                   value: checkboxListTileValue1,
                   onChanged: (newValue) =>
@@ -248,4 +271,8 @@ class _StudentInfoWidgetState extends State<StudentInfoWidget> {
       ),
     );
   }
+
+  TableRow buildRow(List<String> cells) => TableRow(
+        children: cells.map((cell) => Text(cell)).toList(),
+      );
 }
