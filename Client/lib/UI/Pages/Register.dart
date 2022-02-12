@@ -1,5 +1,7 @@
 //import 'package:attendancesys_flutter/UI/DashBoard/LogIn.dart';
 // import 'package:attendancesys_flutter/UI/Pages/Dashboard.dart';
+// ignore_for_file: prefer_const_constructors, unnecessary_const, prefer_const_literals_to_create_immutables
+
 import 'package:attendancesys_flutter/UI/Pages/Dashboard.dart';
 import 'package:attendancesys_flutter/UI/Pages/LogIn.dart';
 import 'package:attendancesys_flutter/main.dart';

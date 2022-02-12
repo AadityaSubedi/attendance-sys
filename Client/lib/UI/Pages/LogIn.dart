@@ -84,7 +84,7 @@ class _LogInWidgetState extends State<LogInWidget> {
           child: GestureDetector(
             onTap: () => FocusScope.of(context).unfocus(),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(1, 0, 0, 0),
+              padding: const EdgeInsetsDirectional.fromSTEB(1, 0, 0, 0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -99,7 +99,7 @@ class _LogInWidgetState extends State<LogInWidget> {
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height * 0.05,
                           decoration: BoxDecoration(
-                            color: Color(0xFF265784),
+                            color: const Color(0xFF265784),
                             borderRadius: BorderRadius.circular(0),
                             border: Border.all(
                               color: Colors.white,
@@ -111,11 +111,12 @@ class _LogInWidgetState extends State<LogInWidget> {
                             height: MediaQuery.of(context).size.height * 1,
                             decoration: BoxDecoration(
                               color: Colors.white,
+                              // ignore: prefer_const_constructors
                               borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(0),
-                                bottomRight: Radius.circular(0),
-                                topLeft: Radius.circular(100),
-                                topRight: Radius.circular(0),
+                                bottomLeft: const Radius.circular(0),
+                                bottomRight: const Radius.circular(0),
+                                topLeft: const Radius.circular(100),
+                                topRight: const Radius.circular(0),
                               ),
                               border: Border.all(
                                 color: Colors.white,
@@ -124,10 +125,10 @@ class _LogInWidgetState extends State<LogInWidget> {
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(-0.85, -0.2),
+                          alignment: const AlignmentDirectional(-0.85, -0.2),
                           child: Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
+                                const EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
                             child: AutoSizeText(
                               'Welcome Back!',
                               style: GoogleFonts.getFont(
@@ -139,10 +140,10 @@ class _LogInWidgetState extends State<LogInWidget> {
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0, -0.5),
+                          alignment: const AlignmentDirectional(0, -0.5),
                           child: Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                                const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(20),
                               child: Image.asset(
@@ -157,13 +158,13 @@ class _LogInWidgetState extends State<LogInWidget> {
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0, 0),
+                    alignment: const AlignmentDirectional(0, 0),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(35, 20, 35, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(35, 20, 35, 0),
                       child: TextFormField(
                         onChanged: (_) => EasyDebounce.debounce(
                           'textController1',
-                          Duration(milliseconds: 2000),
+                          const Duration(milliseconds: 2000),
                           () => setState(() {}),
                         ),
                         controller: textController1,
@@ -171,20 +172,20 @@ class _LogInWidgetState extends State<LogInWidget> {
                         decoration: InputDecoration(
                           hintText: 'Username',
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0x3F265784),
                               width: 3,
                             ),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0x3F265784),
                               width: 3,
                             ),
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          prefixIcon: Icon(
+                          prefixIcon: const Icon(
                             Icons.person_outline_rounded,
                             color: Color(0xFF265784),
                           ),
@@ -193,7 +194,7 @@ class _LogInWidgetState extends State<LogInWidget> {
                                   onTap: () => setState(
                                     () => textController1.clear(),
                                   ),
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.clear,
                                     color: Color(0xFF265784),
                                     size: 22,
@@ -203,7 +204,7 @@ class _LogInWidgetState extends State<LogInWidget> {
                         ),
                         style: GoogleFonts.getFont(
                           'Roboto',
-                          color: Color(0x7F265784),
+                          color: const Color(0x7F265784),
                           fontSize: 18,
                         ),
                         textAlign: TextAlign.center,
@@ -219,29 +220,29 @@ class _LogInWidgetState extends State<LogInWidget> {
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0, 0),
+                    alignment: const AlignmentDirectional(0, 0),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(35, 20, 35, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(35, 20, 35, 0),
                       child: TextFormField(
                         controller: textController2,
                         obscureText: !passwordVisibility,
                         decoration: InputDecoration(
                           hintText: 'Password',
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0x3F265784),
                               width: 3,
                             ),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0x3F265784),
                               width: 3,
                             ),
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          prefixIcon: Icon(
+                          prefixIcon: const Icon(
                             Icons.lock_outlined,
                             color: Color(0xFF265784),
                           ),
@@ -253,14 +254,14 @@ class _LogInWidgetState extends State<LogInWidget> {
                               passwordVisibility
                                   ? Icons.visibility_outlined
                                   : Icons.visibility_off_outlined,
-                              color: Color(0xFF265784),
+                              color: const Color(0xFF265784),
                               size: 22,
                             ),
                           ),
                         ),
                         style: GoogleFonts.getFont(
                           'Roboto',
-                          color: Color(0x7F265784),
+                          color: const Color(0x7F265784),
                           fontSize: 18,
                         ),
                         textAlign: TextAlign.center,
@@ -278,16 +279,16 @@ class _LogInWidgetState extends State<LogInWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                     child:ElevatedButton(
                       onPressed: () async {
                         await Navigator.push(
                           context,
                           PageTransition(
                             type: PageTransitionType.fade,
-                            duration: Duration(milliseconds: 0),
-                            reverseDuration: Duration(milliseconds: 0),
-                            child: DashboardWidget(),//Text("DashBoard Called")
+                            duration: const Duration(milliseconds: 0),
+                            reverseDuration: const Duration(milliseconds: 0),
+                            child: const DashboardWidget(),//Text("DashBoard Called")
                           ),
                         );
                       },
@@ -295,7 +296,7 @@ class _LogInWidgetState extends State<LogInWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -314,7 +315,7 @@ class _LogInWidgetState extends State<LogInWidget> {
                             await Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => RegisterWidget(),
+                                builder: (context) => const RegisterWidget(),
                               ),
                             );
                           },

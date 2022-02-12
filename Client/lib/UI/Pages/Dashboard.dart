@@ -334,7 +334,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                 await Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const LogInWidget(),
+                                    builder: (context) => const AttendanceListWidget(),
                                     // AttendanceListWidget(),
                                   ),
                                 );
@@ -415,7 +415,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                 await Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const LogInWidget(),
+                                    builder: (context) => const StudentInfoWidget(),
                                     //StudentInfoWidget(),
                                   ),
                                 );
