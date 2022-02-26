@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Material App',
+      debugShowCheckedModeBanner:false,
       home: Scaffold(
         body: Stack(
           // ignore: prefer_const_literals_to_create_immutables

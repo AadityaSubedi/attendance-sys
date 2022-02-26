@@ -10,11 +10,6 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-// Color color1 = HexColor("#265784");
-// Color colorSecondary = HexColor("#ea734d");
-// Color color3 = HexColor("#88b74093"); 
-
-
 class LogInWidget extends StatefulWidget {
   const LogInWidget({Key? key}) : super(key: key);
 
