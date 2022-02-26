@@ -76,10 +76,10 @@ class TakeAttendance(Resource):
 
 @ attendance_api.resource("/getattendancelist")
 class GetAttendanceList(Resource):
-  def post(self):
+  def get(self):
     try:
-      class_name = request.form.get('classname')
-      subject_name = request.form.get('subjectname')
+      class_name = request.get_json().get('classname')
+      subject_name = request.get_json().get('subjectname')
       class_attendance = Classes(class_name)
       class_attendance = class_attendance.find_attendance()   
       attendance_list = class_attendance['attendance'][subject_name]
@@ -102,13 +102,14 @@ class GetAttendanceList(Resource):
 @ attendance_api.resource("/getattendance")
 class GetAttendance(Resource):
     # @ jwt_required()
-    def post(self):
+    def get(self):
         try:
             inputData = request.get_json()
             subject_name, class_name, date = inputData['subjectname'], inputData['classname'], inputData['date']
 
             class_attendance = Classes(class_name)
             classattendance = class_attendance.find_attendance()
+            print(classattendance)
             attendance = classattendance['attendance'][subject_name][date]
             # return the command line output as the response
             return (hf.success(
@@ -133,13 +134,14 @@ class GetAttendance(Resource):
 @ attendance_api.resource("/getinfo")
 class GetStudentInfo(Resource):
     # @ jwt_required()
-    def post(self):
+    def get(self):
         try:
-            class_name = request.form.get('classname')
-            subject_name = request.form.get('subjectname')
+            class_name = request.get_json().get('classname')
+            subject_name = request.get_json().get('subjectname')
             
             class_attendance = Classes(class_name)
             classattendance = class_attendance.find_attendance()
+            print(classattendance)
             attendance = classattendance['attendance'][subject_name]
             total_days = len(attendance)
             working_days = ahf.countDays(attendance)
