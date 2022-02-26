@@ -33,13 +33,12 @@ from flask_jwt_extended import (
 @ attendance_api.resource("/takeattendance")
 class TakeAttendance(Resource):
     # @ jwt_required()
-    def get(self):
+    def post(self):
         try:
-            class_name = request.form.get('classname')
-            subject_name = request.form.get('subjectname')
-            attandence_time = request.form.get('time')
+            inputData = request.get_json()
+            subject_name, class_name = inputData['subjectname'], inputData['classname']
+            attandence_time = 1
             names=set()
-
             def long_recognization(time):
               global names
               names = webcam.predict(time)
