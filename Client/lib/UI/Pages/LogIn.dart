@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors
 
 import 'package:attendancesys_flutter/UI/Pages/Dashboard.dart';
 import 'package:attendancesys_flutter/UI/Pages/Register.dart';
@@ -285,7 +284,7 @@ class _LogInWidgetState extends State<LogInWidget> {
                     child:ElevatedButton(
                       
                       style: ElevatedButton.styleFrom(
-                        minimumSize: Size(120, 50),
+                        minimumSize: const Size(120, 50),
                         primary: colorSecondary,
                         elevation: 6,
                         shape: RoundedRectangleBorder(
