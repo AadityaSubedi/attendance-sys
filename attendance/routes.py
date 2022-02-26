@@ -33,7 +33,7 @@ from flask_jwt_extended import (
 @ attendance_api.resource("/takeattendance")
 class TakeAttendance(Resource):
     # @ jwt_required()
-    def get(self):
+    def post(self):
         try:
             class_name = request.form.get('classname')
             subject_name = request.form.get('subjectname')
@@ -78,8 +78,11 @@ class TakeAttendance(Resource):
 class GetAttendanceList(Resource):
   def get(self):
     try:
-      class_name = request.get_json().get('classname')
-      subject_name = request.get_json().get('subjectname')
+      # print(request, request.get_json())
+      dataIn = request.args
+      print(dataIn)
+      class_name = dataIn.get('classname')
+      subject_name = dataIn.get('subjectname')
       class_attendance = Classes(class_name)
       class_attendance = class_attendance.find_attendance()   
       attendance_list = class_attendance['attendance'][subject_name]
@@ -96,7 +99,7 @@ class GetAttendanceList(Resource):
                 "get attendance list",
                 str(e),
                 ),
-                401
+                500
                 )
 
 @ attendance_api.resource("/getattendance")
