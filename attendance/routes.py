@@ -33,7 +33,7 @@ from flask_jwt_extended import (
 @ attendance_api.resource("/takeattendance")
 class TakeAttendance(Resource):
     # @ jwt_required()
-    def get(self):
+    def post(self):
         try:
             class_name = request.form.get('classname')
             subject_name = request.form.get('subjectname')
