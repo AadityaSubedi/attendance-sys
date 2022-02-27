@@ -36,8 +36,7 @@ class TakeAttendance(Resource):
     def post(self):
         try:
             inputData = request.get_json()
-            subject_name, class_name = inputData['subjectname'], inputData['classname']
-            attandence_time = 1
+            subject_name, class_name, attandence_time = inputData['subjectname'], inputData['classname'], float(inputData['time'])
             names=set()
             def long_recognization(time):
               global names
@@ -77,8 +76,9 @@ class TakeAttendance(Resource):
 class GetAttendanceList(Resource):
   def get(self):
     try:
-      class_name = request.get_json().get('classname')
-      subject_name = request.get_json().get('subjectname')
+      inputData = request.args
+      class_name = inputData.get('classname')
+      subject_name = inputData.get('subjectname')
       class_attendance = Classes(class_name)
       class_attendance = class_attendance.find_attendance()   
       attendance_list = class_attendance['attendance'][subject_name]
@@ -135,8 +135,9 @@ class GetStudentInfo(Resource):
     # @ jwt_required()
     def get(self):
         try:
-            class_name = request.get_json().get('classname')
-            subject_name = request.get_json().get('subjectname')
+            inputData = request.args
+            class_name = inputData.get('classname')
+            subject_name = inputData.get('subjectname')
             
             class_attendance = Classes(class_name)
             classattendance = class_attendance.find_attendance()
