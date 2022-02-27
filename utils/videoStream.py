@@ -31,9 +31,16 @@ class WebcamVideoStream:
                 self.stream.release()
                 return
     		# otherwise, read the next frame from the stream
-            # print("hey")
             (self.grabbed, self.frame) = self.stream.read()
-            cv2.imshow('frame', self.frame)
+            # frontend ma stream garne vayesi yo necessary vayena
+            # cv2.imshow('frame', self.frame)
+
+            ret, buffer = cv2.imencode('.jpg', self.frame)
+            frame = buffer.tobytes()
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
+
+
             end_time = time.time()
             if (end_time - start_time) > float(self.time):
                 self.stop()
