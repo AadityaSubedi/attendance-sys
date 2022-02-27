@@ -70,7 +70,7 @@ class TakeAttendance(Resource):
                     "take attendance",
                     str(e),
                     ),
-                    401
+                    500
                     )
 
 

@@ -1,7 +1,7 @@
 from typing import Union
 from database import DB
 from bson.objectid import ObjectId
-import datetime
+import nepali_datetime
 
 
 class Classes:
@@ -41,7 +41,7 @@ class Classes:
             self.class_name = args[0]
             self.subject_name = args[1]
             self.attendees = args[2]
-            self.date = datetime.date.today().strftime('%K-%n-%D')
+            self.date = nepali_datetime.date.today().strftime('%K-%n-%D')
         #self.date = nepali_datetime.date(1977, 10, 25).strftime('%K-%n-%D')
 
     def json(self):
