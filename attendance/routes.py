@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, Response
 import json
 from bson import json_util
 from attendance.models import Classes
@@ -20,6 +20,8 @@ from bson.json_util import dumps
 from utils import helper_functions as hf
 from utils import file_helper_functions as fhf
 from utils import webcam
+from utils import videoStream
+
 
 from flask_jwt_extended import (
     create_access_token,
@@ -36,8 +38,7 @@ class TakeAttendance(Resource):
     def post(self):
         try:
             inputData = request.get_json()
-            subject_name, class_name = inputData['subjectname'], inputData['classname']
-            attandence_time = 1
+            subject_name, class_name, attandence_time = inputData['subjectname'], inputData['classname'] , inputData['time']
             names=set()
             def long_recognization(time):
               global names
@@ -168,6 +169,27 @@ class GetStudentInfo(Resource):
                     str(e),
                     ),
                     401
+                    )
+
+
+
+@ attendance_api.resource("/getstream/<int:time>")
+class Stream(Resource):
+    # @ jwt_required()
+    def get(self, time):
+        try:
+            
+          vid = videoStream.WebcamVideoStream(0,time) 
+            # return the command line output as the response
+          return Response(vid.update(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+        except Exception as e:
+            return (hf.failure(
+
+                    "get stream",
+                    str(e),
+                    ),
+                    500
                     )
 
 
