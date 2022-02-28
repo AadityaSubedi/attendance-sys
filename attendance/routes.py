@@ -139,9 +139,9 @@ class GetStudentInfo(Resource):
     # @ jwt_required()
     def get(self):
         try:
-            class_name = request.get_json().get('classname')
-            subject_name = request.get_json().get('subjectname')
-            
+            dataIn = request.args
+            class_name = dataIn.get('classname')
+            subject_name = dataIn.get('subjectname')
             class_attendance = Classes(class_name)
             classattendance = class_attendance.find_attendance()
             print(classattendance)
