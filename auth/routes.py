@@ -42,9 +42,10 @@ class RegisterUsers(Resource):
 
             #may not need this
             subjects = loads(request.form.get('subjects'))
+            print(subjects)
 
             inputData = {
-                'username': request.form.get('username'),
+                'username': request.form.get('username').lower(),
                 'email': request.form.get('email'),
                 'password': request.form.get('password'),
                 'fullname': request.form.get('fullname'),
@@ -130,11 +131,14 @@ class RegisterUsers(Resource):
 
 @ user_api.resource("/login")
 class LoginUser(Resource):
-    def get(self):
+    def post(self):
         try:
             inputData = request.get_json()
+            print(inputData)
             user = DB.find_one(User.collection, {
-                'username': inputData['username']})
+                'username': inputData['username'].lower()})
+
+            assert user, f"User doesn't exist"
 
             pw_compare = bcrypt.check_password_hash(user['password'], inputData['password'])
             assert user and pw_compare, "Invalid credentials"

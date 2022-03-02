@@ -42,6 +42,7 @@ class CheckData(Resource):
     def post(self):
         try:
             images = request.files.getlist("images")
+            assert images, "upload at least one file"
             response ={}
 
             for image in images:

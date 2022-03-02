@@ -21,7 +21,8 @@ from utils import helper_functions as hf
 from utils import file_helper_functions as fhf
 from utils import webcam
 from utils import videoStream
-
+from json import loads
+from bson.json_util import dumps
 
 from flask_jwt_extended import (
     create_access_token,
@@ -30,6 +31,32 @@ from flask_jwt_extended import (
     get_jwt_identity,
     get_jti
 )
+
+@ attendance_api.resource("/userinfo")
+class UserInfo(Resource):
+    @ jwt_required()
+    def get(self):
+        try:
+            username = get_jwt_identity()
+            user = DB.find_one(Teacher.collection,{"user_id":username})
+            assert user, f"user doesn't exist"
+
+            # return the command line output as the response
+            return (hf.success(
+                    "user info",
+                    loads(dumps(user)),
+                    ),
+                    200
+                    )
+
+        except Exception as e:
+            return (hf.failure(
+
+                    "user Info",
+                    str(e),
+                    ),
+                    500
+                    )
 
 
 @ attendance_api.resource("/takeattendance")
