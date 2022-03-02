@@ -34,16 +34,15 @@ from .train_helper_functions import start_training
 from threading import Thread
 from PIL import Image
 
-
-
 @train_api.resource("/check")
 class CheckData(Resource):
     # @ jwt_required()
     def post(self):
         try:
+            print('**********-------+++++++')
             images = request.files.getlist("images")
             response ={}
-
+            print(images)
             for image in images:
                 pixels = hf.extract_face(image)
                 filename = f"{uuid.uuid4()}.jpg"
@@ -52,6 +51,7 @@ class CheckData(Resource):
                 else: 
                     filename = "404.jpg"
                 response[image.filename] = filename
+            print(response)
             return (hf.success(
                     "data check",
                     "data checking successful",
@@ -59,10 +59,8 @@ class CheckData(Resource):
                     ),
                     200
                     )
-
         except Exception as e:
             return (hf.failure(
-
                     "data check",
                     str(e),
                     ),
@@ -77,7 +75,7 @@ class CheckData(Resource):
 @train_api.resource("/start")
 class StartTrain(Resource):
     # @ jwt_required()
-    def post(self):
+    def get(self):
         try:
             cacheInstance = DB.find_one(Cache.collection, {'type': 'cache'})
             isModelTraining = False
@@ -125,8 +123,6 @@ class UploadData(Resource):
             label = request.form.get("label")
             for image in images:
                 fhf.save_image(image,dir = "datasets",subdir=label)
-
-        
 
             return (hf.success(
                     "data uploads",

@@ -38,11 +38,7 @@ class TakeAttendance(Resource):
     def post(self):
         try:
             inputData = request.get_json()
-<<<<<<< HEAD
             subject_name, class_name, attandence_time = inputData['subjectname'], inputData['classname'], float(inputData['time'])
-=======
-            subject_name, class_name, attandence_time = inputData['subjectname'], inputData['classname'] , inputData['time']
->>>>>>> 50d24687f88e671f241a8a0fc8a1bfbeb9c6a6fc
             names=set()
             def long_recognization(time):
               global names
@@ -82,17 +78,9 @@ class TakeAttendance(Resource):
 class GetAttendanceList(Resource):
   def get(self):
     try:
-<<<<<<< HEAD
       inputData = request.args
       class_name = inputData.get('classname')
       subject_name = inputData.get('subjectname')
-=======
-      # print(request, request.get_json())
-      dataIn = request.args
-      print(dataIn)
-      class_name = dataIn.get('classname')
-      subject_name = dataIn.get('subjectname')
->>>>>>> 50d24687f88e671f241a8a0fc8a1bfbeb9c6a6fc
       class_attendance = Classes(class_name)
       class_attendance = class_attendance.find_attendance()   
       attendance_list = class_attendance['attendance'][subject_name]
@@ -142,7 +130,6 @@ class GetAttendance(Resource):
                     401
                     )
 
-            
 
 @ attendance_api.resource("/getinfo")
 class GetStudentInfo(Resource):
@@ -189,11 +176,9 @@ class Stream(Resource):
     # @ jwt_required()
     def get(self, time):
         try:
-            
           vid = videoStream.WebcamVideoStream(0,time) 
             # return the command line output as the response
           return Response(vid.update(), mimetype='multipart/x-mixed-replace; boundary=frame')
-
         except Exception as e:
             return (hf.failure(
 
