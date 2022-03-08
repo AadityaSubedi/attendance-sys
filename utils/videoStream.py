@@ -19,7 +19,7 @@ class WebcamVideoStream:
 
     def start(self):
     		# start the thread to read frames from the video stream
-        self.start_time = time.time()
+        # self.start_time = time.time()
         Thread(target=self.update, args=()).start()
         return self 
     def update(self):
@@ -33,19 +33,20 @@ class WebcamVideoStream:
     		# otherwise, read the next frame from the stream
             (self.grabbed, self.frame) = self.stream.read()
             # frontend ma stream garne vayesi yo necessary vayena
-            # cv2.imshow('frame', self.frame)
+            cv2.imshow('frame', self.frame)
 
-            ret, buffer = cv2.imencode('.jpg', self.frame)
-            frame = buffer.tobytes()
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
-
-
+            # ret, buffer = cv2.imencode('.jpg', self.frame)
+            # frame = buffer.tobytes()
             end_time = time.time()
+            print(end_time - start_time, self.time )
             if (end_time - start_time) > float(self.time):
                 self.stop()
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 self.stop()
+            # yield (b'--frame\r\n'
+            #        b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
+
+
 
 
     def read(self):

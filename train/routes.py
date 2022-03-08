@@ -41,6 +41,7 @@ class CheckData(Resource):
         try:
             print('**********-------+++++++')
             images = request.files.getlist("images")
+            assert images, "upload at least one file"
             response ={}
             print(images)
             for image in images:

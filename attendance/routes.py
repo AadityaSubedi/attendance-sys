@@ -21,7 +21,8 @@ from utils import helper_functions as hf
 from utils import file_helper_functions as fhf
 from utils import webcam
 from utils import videoStream
-
+from json import loads
+from bson.json_util import dumps
 
 from flask_jwt_extended import (
     create_access_token,
@@ -31,6 +32,33 @@ from flask_jwt_extended import (
     get_jti
 )
 
+@ attendance_api.resource("/userinfo")
+class UserInfo(Resource):
+    @ jwt_required()
+    def get(self):
+        try:
+            username = get_jwt_identity()
+            user = DB.find_one(Teacher.collection,{"user_id":username})
+            assert user, f"user doesn't exist"
+
+            # return the command line output as the response
+            return (hf.success(
+                    "user info",
+                    "user info fetched succesfully",
+                    loads(dumps(user)),
+                    ),
+                    200
+                    )
+
+        except Exception as e:
+            return (hf.failure(
+
+                    "user Info",
+                    str(e),
+                    ),
+                    500
+                    )
+
 
 @ attendance_api.resource("/takeattendance")
 class TakeAttendance(Resource):
@@ -38,7 +66,7 @@ class TakeAttendance(Resource):
     def post(self):
         try:
             inputData = request.get_json()
-            subject_name, class_name, attandence_time = inputData['subjectname'], inputData['classname'], float(inputData['time'])
+            subject_name, class_name, attandence_time = inputData['subjectname'], inputData['classname'] , inputData['time']
             names=set()
             def long_recognization(time):
               global names
@@ -134,12 +162,12 @@ class GetAttendance(Resource):
 @ attendance_api.resource("/getinfo")
 class GetStudentInfo(Resource):
     # @ jwt_required()
+    
     def get(self):
         try:
-            inputData = request.args
-            class_name = inputData.get('classname')
-            subject_name = inputData.get('subjectname')
-            
+            dataIn = request.args
+            class_name = dataIn.get('classname')
+            subject_name = dataIn.get('subjectname')
             class_attendance = Classes(class_name)
             classattendance = class_attendance.find_attendance()
             print(classattendance)
@@ -171,12 +199,13 @@ class GetStudentInfo(Resource):
 
 
 
-@ attendance_api.resource("/getstream/<int:time>")
+@ attendance_api.resource("/getstream/<float:time>")
 class Stream(Resource):
     # @ jwt_required()
     def get(self, time):
         try:
-          vid = videoStream.WebcamVideoStream(0,time) 
+          src = 0
+          vid = videoStream.WebcamVideoStream(src,time) 
             # return the command line output as the response
           return Response(vid.update(), mimetype='multipart/x-mixed-replace; boundary=frame')
         except Exception as e:

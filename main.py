@@ -59,7 +59,7 @@ def add_claims_to_jwt(identity):
 
 
 @jwt.token_in_blocklist_loader
-def check_if_token_in_blocklist(decrypted_token):
+def check_if_token_in_blocklist(_,decrypted_token):
     return decrypted_token['jti'] in {"[blocklist of jti]"}
     #  modify this as per the need later
 
