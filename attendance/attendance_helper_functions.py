@@ -87,7 +87,9 @@ def countDays(attendance):
     for attendees_list in attendance.values():
         for attendee in attendees_list:
             all_attendees.append(attendee)
+    all_attendees.sort()
 
+    all_attendees.sort()
     working_days = defaultdict(int)
     for attendee in all_attendees:
         working_days[attendee] += 1
