@@ -44,7 +44,6 @@ def predict(time):
         frame = vid.read()
         # cv2.imshow('frame', frame)
 
-
         # detect the faces in the frame
         faces,frame = get_faces(frame, isFrame=True)
         # Display the resulting frame

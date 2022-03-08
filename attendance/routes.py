@@ -44,6 +44,7 @@ class UserInfo(Resource):
             # return the command line output as the response
             return (hf.success(
                     "user info",
+                    "user info fetched succesfully",
                     loads(dumps(user)),
                     ),
                     200
@@ -164,6 +165,7 @@ class GetAttendance(Resource):
 @ attendance_api.resource("/getinfo")
 class GetStudentInfo(Resource):
     # @ jwt_required()
+    
     def get(self):
         try:
             class_name = request.get_json().get('classname')
@@ -200,13 +202,13 @@ class GetStudentInfo(Resource):
 
 
 
-@ attendance_api.resource("/getstream/<int:time>")
+@ attendance_api.resource("/getstream/<float:time>")
 class Stream(Resource):
     # @ jwt_required()
     def get(self, time):
         try:
-            
-          vid = videoStream.WebcamVideoStream(0,time) 
+          src = 0
+          vid = videoStream.WebcamVideoStream(src,time) 
             # return the command line output as the response
           return Response(vid.update(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
