@@ -75,7 +75,7 @@ class CheckData(Resource):
 @train_api.resource("/start")
 class StartTrain(Resource):
     # @ jwt_required()
-    def get(self):
+    def post(self):
         try:
             cacheInstance = DB.find_one(Cache.collection, {'type': 'cache'})
             isModelTraining = False
