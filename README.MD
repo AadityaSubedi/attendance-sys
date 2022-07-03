@@ -12,3 +12,10 @@ pip install -r requirements.txt
 
 ```
 Cheers! There you go...
+
+## Contributers / Team Members
+
+- [Aaditya Subedi](https://github.com/AadityaSubedi)
+- [Arpan Gyawali](https://github.com/ArpanGyawali)
+- [Bijay Shrestha](https://github.com/Hakudon)
+- [Bidhan Khatiwada](https://github.com/Bidhan123)
