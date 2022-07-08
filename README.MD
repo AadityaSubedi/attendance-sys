@@ -11,7 +11,7 @@ pip install -r requirements.txt
 ./run.sh
 
 ```
-Cheers! There you go...
+Cheers! There you go....
 
 ## Contributers / Team Members
 
