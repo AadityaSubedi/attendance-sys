@@ -23,6 +23,7 @@ class Classes:
     #     self,
     #     class_name: str,
     #     subject_name: str,
+    
     #     attendees: list
     # ):
     #     self.class_name = class_name
