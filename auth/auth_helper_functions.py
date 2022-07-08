@@ -4,7 +4,6 @@ def check_email(email: str):
     assert re.match(r"[^@]+@[^@]+\.[^@]+", email), "Please enter a valid email."
 
 
-
 def check_username(username: str):
     assert (
         len(username) >= 6 and len(username) <= 20
