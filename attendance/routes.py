@@ -163,6 +163,7 @@ class GetAttendance(Resource):
 class GetStudentInfo(Resource):
     # @ jwt_required()
     
+    
     def get(self):
         try:
             dataIn = request.args
