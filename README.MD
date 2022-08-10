@@ -10,7 +10,7 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install syllabu
 
 Train a face classifier model with your own set of images from: [Google Collab](https://colab.research.google.com/drive/1D4Nn5ToPBbovpEjdnrVRMvqVe1sQkPuD?usp=sharing)
 The folder structure in your google drive to store the training and test datasets should be:
-
+```bash
 Your Drive
 ├── ...
 ├── project                
@@ -32,6 +32,7 @@ Your Drive
 |                ├── any_filename2.jpg #store nearly 8 validating images
 │                   
 └── ...
+```
 The model will be saved inside `gdrive/My Drive/project` of your google drive, download into your cloned folder as `model.sav`.
 Also, download `datasets-embeddings.npz` from `gdrive/My Drive/project` into your cloned dir.
 
